@@ -1,7 +1,7 @@
-# Generative AI for Developers Deep Dive
-## Understanding key Gen AI concepts - full-day workshop
+# Working with HuggingFace
+## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 2.3 - 08/07/24
+## Revision 1.0 - 10/14/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
