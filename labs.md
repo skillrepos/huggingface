@@ -156,6 +156,69 @@ python tokenizer.py xlnet-large-cased
 </p>
 </br></br>
 
+Lab 6: 
+Step 1: Install Gradio
+First, you need to install Gradio, which is a Python library used for building interactive machine learning models.
+
+Open your terminal and run the following command:
+
+bash
+Copy code
+pip install gradio
+Explanation: This command installs Gradio and its dependencies, enabling you to create and deploy simple AI-powered web interfaces.
+Step 2: Import a Pre-trained Model for Sentiment Analysis
+In this step, you will import a pre-trained model for sentiment analysis from Hugging Face's transformers library. We'll use the pipeline function, which makes working with models straightforward.
+
+python
+Copy code
+from transformers import pipeline
+
+# Load a pre-trained sentiment analysis model
+classifier = pipeline("sentiment-analysis")
+Explanation: This uses a pre-built pipeline for sentiment analysis. It loads the default model for sentiment tasks, which can classify text as positive or negative.
+Step 3: Define a Function for Gradio to Use
+Now, create a function that the Gradio interface will call when analyzing the text input.
+
+python
+Copy code
+def sentiment_analysis(text):
+    return classifier(text)
+Explanation: This function takes a string input (text), runs the sentiment analysis pipeline on it, and returns the output (either "positive" or "negative" sentiment).
+Step 4: Set Up a Gradio Interface
+Next, you'll set up the Gradio interface. This interface allows users to input text and receive a sentiment label as output.
+
+python
+Copy code
+import gradio as gr
+
+# Set up the Gradio interface
+interface = gr.Interface(fn=sentiment_analysis, inputs="text", outputs="label")
+Explanation:
+fn=sentiment_analysis: This specifies the function to run when the interface is used.
+inputs="text": The interface expects a text input.
+outputs="label": The output will be a label (positive or negative).
+Step 5: Launch the Gradio Interface
+Once the interface is set up, launch it locally. This will open the Gradio interface in your default web browser.
+
+python
+Copy code
+interface.launch()
+Explanation: This command starts a web server and opens a browser window where you can interact with your sentiment analysis model.
+Step 6: Test the Interface with Different Inputs
+After launching the interface, open the browser window (which automatically appears) and input different sentences to see the sentiment analysis results. For example, try typing:
+
+"I love this product!"
+"This is the worst service I’ve ever experienced."
+Observe how the model responds with "positive" or "negative" sentiments.
+
+Step 7: Modify the Interface to Allow Batch Inputs (Multiple Sentences)
+To allow multiple inputs (e.g., batch of sentences), modify the inputs to accept a list of text inputs.
+
+python
+Copy code
+interface = gr.Interface(fn=sentiment_analysis, inputs="text", outputs="label", allow_flagging="auto", interpretation="default")
+Explanation: The inputs and outputs parameters remain the same, but you can process multiple sentences at once. Gradio will automatically handle multiple inputs as long as they are passed as a list.
+
 **Lab 3 - Understanding embeddings, vectors and similarity measures**
 
 **Purpose: In this lab, we'll see how tokens get mapped to vectors and how vectors can be compared.**
