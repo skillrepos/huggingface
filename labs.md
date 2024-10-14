@@ -7,72 +7,114 @@
 
 **NOTE: To copy and paste in the codespace, you may need to use keyboard commands - CTRL-C and CTRL-V. Chrome may work best for this.**
 
-**Lab 1 - Working with Neural Networks**
+**Lab 1 - Setup and Explore Hugging Face**
 
-**Purpose: In this lab, we’ll learn more about neural networks by seeing how one is coded and trained.**
+**Purpose: In this lab, we'll start to get familiar with the Hugging Face platform and see how to run simple tasks using pre-trained models.**
 
-1. In our repository, we have a set of Python programs to help us illustrate and work with concepts in the labs. These are mostly in the *genai* subdirectory. Go to the *TERMINAL* tab in the bottom part of your codespace and change into that directory.
-```
-cd genai
-```
+1. In a browser, go to *https://huggingface.co/models*.
 
-2. For this lab, we have a simple neural net coded in Python. The file name is nn.py. Open the file either by clicking on [**genai/nn.py**](./genai/nn.py) or by entering the command below in the codespace's terminal.
+2. Let's search for another simple model to try out. In the search bar, enter the text *DialoGPT*. Look for and select the *microsoft/DialoGPT-medium* model.
+  ![model search](./images/dga44.png?raw=true "model search")
 
-```
-code nn.py
-```
+3. Let's see how we can quickly get up and running with this model. On the *Model Card* page for the *microsoft/DialoGPT-medium* model, if you scroll down, you'll see a *How to use* section with some code in it. Highlight that code and copy it so we can paste it in a file in our workspace.
 
-3. Scroll down to around line 55. Notice the *training_inputs* data and the *training_outputs* data. Each row of the *training_outputs* is what we want the model to predict for the corresponding input row. As coded, the output for the sample inputs ends up being the same as the first element of the array.  For inputs [0,0,1] we are trying to train the model to predict [0]. For the inputs [1,0,1], we are trying to train the model to predict [1], etc. The table below may help to explain.
-
-| **Dataset** | **Values** | **Desired Prediction** |
-| :---------: | :--------: | :--------------------: |
-| **1** |  0  0  1  |            0           |
-| **2** |  1  1  1  |            1           |
-| **3** |  1  0  1  |            1           |
-| **4** |  0  1  1  |            0           |
-
-4. When we run the program, it will train the neural net to try and predict the outputs corresponding to the inputs. You will see the random training weights to start and then the adjusted weights to make the model predict the output. You will then be prompted to put in your own training data. We'll look at that in the next step. For now, go ahead and run the program (command below) but don't put in any inputs yet. Just notice how the weights have been adjusted after the training process.
+![code to use model](./images/dga45.png?raw=true "code to use model")
+   
+4. Switch back to your codespace and the *diy-gen-ai* directory (if not there). Create a new file named dgpt-med.py (or whatever you want to call it). Paste the code you copied from the model card page into the file. You can create the new file from the terminal using:
 
 ```
-python nn.py
+code dgpt-med.py
 ```
-![Starting run of simple nn](./images/gaidd30.png?raw=true "Starting run of simple nn") 
+![adding code](./images/dga46.png?raw=true "adding code")
 
-5. What you should see is that the weights after training are now set in a way that makes it more likely that the result will match the expected output value. To prove this out, you can enter your own input set - just use 1's and 0's for each input. 
-
-![Inputs to simple nn](./images/gaidd31.png?raw=true "Inputs to simple nn") 
-
-6. After you put in your inputs, the neural net will process your input and because of the training, it should predict a result that is close to the first input value you entered (the one for *Input one*).
-
-![Prediction close to first input](./images/gaidd32.png?raw=true "Prediction close to first input") 
-
-7. Now, let's see what happens if we change the expected outputs to be different. In the editor for the genai_nn.py file, find the line for the *training_outputs*. Modify the values in the array to be ([[0],[1],[0],[1]]). These are the values of the second element in each of the training data entries. After you're done, save your changes as shown below.
-
-![Modifying expected outputs](./images/gaidd33.png?raw=true "Modifying expected outputs")
-![Saving changes](./images/gaidd9.png?raw=true "Saving changes")
-
-8. Now, run the neural net again. This time when the weights after training are shown, you should see a bias for a higher weight for the second item.
+5. Don't forget to save your file. Now you can run your file by invoking it with python. You'll see it start to download the files associated with the model. This will take a bit of time to run.
 ```
-python nn.py
+python dgpt-med.py
 ```
-![Second run of simple nn](./images/gaidd34.png?raw=true "Second run of simple nn") 
+![running the model](./images/dga47.png?raw=true "running the model")
 
-9. At the input prompts, just input any sequence of 0's and 1's as before.
+6. After the model loads, you'll see a *>> User:* prompt. You can enter a prompt or question here, and after some time, the model will provide a response.  **NOTE** This model is small and old and does not provide good responses usually or even ones that make sense. We are using it as a simple, quick demo only.
 
-10. When the trained model then processes your inputs, you should see that it predicts a value that is close to 0 or 1 depending on what your second input was.
+```
+>> User: <prompt here>
+```
+![running the model](./images/dga48.png?raw=true "running the model")
 
-![Second output of simple nn](./images/gaidd35.png?raw=true "Second output of simple nn")
+7. Let's now switch to a different model. Go back to the Hugging Face search and look for *phi3-vision*. Find and select the entry for *microsoft/Phi-3-vision-128k-instruct*.
+![finding the phi3-vision model](./images/dga49.png?raw=true "finding the phi3-vision model")
 
-11. (Optional) If you get done early and want more to do, feel free to try other combinations of training inputs and training outputs.
-    
+8. Switch to the *Files and versions* page to see the sizes of the files in the Git repository. Note the larger sizes of the model files themselves.
+![examining the model files](./images/dga53.png?raw=true "examining the model files")
+
+9. Now, let's see how we can try this model out with no setup on our part. Go back to the *Model card* tab, and scroll down to the *Resources and Technical Documentation* section. Under that, select the entry for *Phi-3 on Azure AI Studio*.
+![Invoking model on Azure AI Studio](./images/dga54.png?raw=true "Invoking the model on Azure AI Studio")
+
+10. This will start up a separate browser instance of Azure AI Studio with the model loaded so you can query it. In the prompt area, enter in a prompt to have the AI describe a picture. You can upload one, enter the URL of one on the web, or use the example one suggested below. After you submit your prompt, the model should return a description of the photo. (If you get a response like *"Sorry I can't assist with that."*, refresh the page and try again.)
+```
+Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-cat-as-best-friends-looking-out-the-window-together.jpg?s=2048x2048&w=is&k=20&c=Do171m5e2DbPIlWDs1JfHn-g8Et_Hxb2AskHg4cRYY4=
+```
+![Describing an image](./images/dga55.png?raw=true "Describing an image")
+
+
 <p align="center">
 **[END OF LAB]**
 </p>
 </br></br>
 
-**Lab 2 - Experimenting with Tokenization**
+**Lab 2 - Text processing with pre-trained models**
 
-**Purpose: In this lab, we'll see how different models do tokenization.**
+**Purpose: In this lab, we’ll see how to interact with various models from Hugging Face and the transformers library for different standard tasks**
+
+1. In our repository, we have several different Python programs that utilize transformer models for standard types of LLM tasks. One of them is a simple a simple translation example. The file name is genai_translation.py. Open the file either by clicking on [**genai/translation.py**](./genai/translation.py) or by entering the command below in the codespace's terminal.
+
+```
+code translation.py
+```
+2. Take a look at the file contents.  Notice that we are pulling in a specific model ending with 'en-fr'. This is a clue that this model is trained for English to French translation. Let's find out more about it. In a browser, go to *https://huggingface.co/models* and search for the model name 'Helsinki-NLP/opus-mt-en-fr' (or you can just go to huggingface.co/Helsinki-NLP/opus-mt-en-fr).
+![model search](./images/gaidd26.png?raw=true "model search")
+
+3. You can look around on the model card for more info about the model. Notice that it has links to an *OPUS readme* and also links to download its original weights, translation test sets, etc.
+
+4. When done looking around, go back to the repository and look at the rest of the *translation.py* file. What we are doing is loading the model, the tokenizer, and then taking a set of random texts and running them through the tokenizer and model to do the translation. Go ahead and execute the code in the terminal via the command below.
+```
+python translation.py
+```
+![translation by model](./images/gaidd41.png?raw=true "translation by model")
+ 
+5. There's also an example program for doing classification. The file name is classification.py. Open the file either by clicking on [**genai/classification.py**](./genai/classification.py) or by entering the command below in the codespace's terminal.
+
+```
+code classification.py
+```
+6. Take a look at the model for this one *joeddav/xlm-roberta-large-xnli* on huggingface.co and read about it. When done, come back to the repo.
+
+7. This uses a HuggingFace pipeline to do the main work. Notice it also includes a list of categories as *candidate_labels* that it will use to try and classify the data. Go ahead and run it to see it in action. (This will take awhile to download the model.) After it runs, you will see each topic, followed by the ratings for each category. The scores reflect how well the model thinks the topic fits a category. The highest score reflects which category the model thinks fit best.
+```
+python classification.py
+```
+![classification by model](./images/gaidd42.png?raw=true "classification by model")
+
+8. Finally, we have a program to do sentiment analysis. The file name is sentiment.py. Open the file either by clicking on [**genai/sentiment.py**](./genai/sentiment.py) or by entering the command below in the codespace's terminal.
+
+```
+code sentiment.py
+```
+
+9. Again, you can look at the model used by this one *distilbert-base-uncased-finetuned-sst-2-english* in Hugging Face.
+
+10. When ready, go ahead and run this one in the similar way and observe which ones it classified as positive and which as negative and the relative scores.
+```
+python sentiment.py
+```
+![sentiment by model](./images/gaidd43.png?raw=true "sentiment by model")
+
+11. If you're done early, feel free to change the texts, the candidate_labels in the previous model, etc. and rerun the models to see the results.
+
+<p align="center">
+**[END OF LAB]**
+</p>
+</br></br>
+
 
 1. In the same *genai* directory, we have a simple program that can load a model and print out tokens generated by it. The file name is *tokenizer.py*. You can view the file either by clicking on [**genai/tokenizer.py**](./genai/tokenizer.py) or by entering the command below in the codespace's terminal (assuming you're still in the *genai* directory).
 
