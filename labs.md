@@ -156,7 +156,7 @@ python tokenizer.py xlnet-large-cased
 </p>
 </br></br>
 
-Lab 6: 
+Lab 5: 
 Step 1: Install Gradio
 First, you need to install Gradio, which is a Python library used for building interactive machine learning models.
 
@@ -219,6 +219,44 @@ Copy code
 interface = gr.Interface(fn=sentiment_analysis, inputs="text", outputs="label", allow_flagging="auto", interpretation="default")
 Explanation: The inputs and outputs parameters remain the same, but you can process multiple sentences at once. Gradio will automatically handle multiple inputs as long as they are passed as a list.
 
+**Lab 6 - Sharing our app to Hugging Face Spaces**
+
+**Purpose - In this lab, we'll share the Gradio app we created in the last lab to a Hugging Face Space**
+
+1. First, create a Hugging Face account if you don't have one.  toYou can go to https://huggingface.co/join to sign up or https://huggingface.co/login
+
+image: hug20
+
+2. Create a new space by clicking on the 3-bar menu in the top right. Then click on the "New Space" item or go to "https://huggingface.co/new-space".
+
+image: hug21
+
+3. Add a "Space name" (suggestion: "Sentiment_Analysis"), and "Short description" (suggestion: "Simple demo app for Sentiment Analysis"). You can set the "License" to "mit".
+
+image: hug22
+
+4. Select the "Gradio" Space SDK. You can keep the defaults for the rest of the options.
+
+image: hug23
+
+5. Click on the "Create Space" button to finish creating the new space.
+
+image: hug24
+
+6. You'll now be on the screen with guidance for how to upload your Gradio app to the new space. Near the middle of the page you'll find the commands to use to get your app into the new space.
+
+image: hug26
+
+7. Execute the commands from the dialog to get the app put into Spaces.
+
+```
+git add app.py
+git commit -m "Add application file"
+git push
+```
+
+
+2. 
 **Lab 3 - Understanding embeddings, vectors and similarity measures**
 
 **Purpose: In this lab, we'll see how tokens get mapped to vectors and how vectors can be compared.**
