@@ -61,9 +61,10 @@ Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-
 </p>
 </br></br>
 
-**Lab 2 - Working with pipelines**
+**Lab 2 - Creating a custom pipeline**
 
-**Purpose: In this lab, we’ll see how to interact with Hugging Face pipelines, create a custom pipeline and publish it out to Hugging Face**
+**Purpose: In this lab, we’ll see how to interact with Hugging Face pipelines and create a custom pipeline**
+
 1. In our repository, we have a program to do sentiment analysis. The file name is sentiment.py. Open the file either by clicking on [**genai/sentiment.py**](./genai/sentiment.py) or by entering the command below in the codespace's terminal.
 
 ```
@@ -130,6 +131,23 @@ python lab2.py
 ```
 ![running the custom pipeline](./images/hug27.png?raw=true "Running the custom pipeline")
 
+**Lab 3 - Publishing a custom pipeline on Hugging Face**
+
+**Purpose: In this lab, we’ll publish the custom pipeline we created in the last lab out on Hugging Face**
+
+1. Make sure you are logged in to your Hugging Face account. We need to have an access token to work with. Go to this URL: https://huggingface.co/settings/tokens/new?tokenType=write to create a new token. (Alternatively, you can go to your user Settings, then select Access Tokens, then Create new token, and select Write for the token type.) Select a name for the token and then Create token.
+
+![creating a new token](./images/hug29.png?raw=true "Creating a new token")
+
+2. After you click the Create button, your new token will be displayed on the screen. Make sure to Copy it and save it somewhere you can get to it for the next steps. You will not be able to see it again.
+
+![new token displayed](./images/hug30.png?raw=true "New token displayed")  
+
+3. Run the following command to login with your Hugging Face account credentials. This will prompt you for your Hugging Face token, which can be found in your Hugging Face account settings under Access Tokens. Copy and paste the token.
+
+```
+huggingface-cli login
+```
 8. 
 1. In ou
 2. r repository, we have several different Python programs that utilize transformer models for standard types of LLM tasks. One of them is a simple a simple translation example. The file name is genai_translation.py. Open the file either by clicking on [**genai/translation.py**](./genai/translation.py) or by entering the command below in the codespace's terminal.
