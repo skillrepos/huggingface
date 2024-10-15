@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 1.0 - 10/14/24
+## Revision 1.1 - 10/15/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -61,11 +61,78 @@ Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-
 </p>
 </br></br>
 
-**Lab 2 - Text processing with pre-trained models**
+**Lab 2 - Working with pipelines**
 
-**Purpose: In this lab, we’ll see how to interact with various models from Hugging Face and the transformers library for different standard tasks**
+**Purpose: In this lab, we’ll see how to interact with Hugging Face pipelines, create a custom pipeline and publish it out to Hugging Face**
+1. In our repository, we have a program to do sentiment analysis. The file name is sentiment.py. Open the file either by clicking on [**genai/sentiment.py**](./genai/sentiment.py) or by entering the command below in the codespace's terminal.
 
-1. In our repository, we have several different Python programs that utilize transformer models for standard types of LLM tasks. One of them is a simple a simple translation example. The file name is genai_translation.py. Open the file either by clicking on [**genai/translation.py**](./genai/translation.py) or by entering the command below in the codespace's terminal.
+```
+code sentiment.py
+```
+
+2. Notice that it's using a Hugging Face pipeline to do the analysis (see line 5). We've seeded it with some random strings as data to work against. When ready, go ahead and run it with python in the codespace's terminal. In the output, observe which ones it classified as positive and which as negative and the relative scores.
+```
+python sentiment.py
+```
+
+3. Now let's create a custom pipeline. We'll create one that does translation from one language to another and then runs sentiment analysis on the results - basically combining two existing pipelines. Start out by creating a new file for the custom code with the command below.
+
+```
+code lab2.py
+```
+
+4. Now add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating French to English (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
+
+```
+from transformers import pipeline
+
+# Load the translation pipeline (for translating text to English)
+translator = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+
+# Load the sentiment analysis pipeline (to classify English text)
+sentiment_analyzer = pipeline("sentiment-analysis")
+```
+
+5. Next, we'll define a custom pipeline function. Add the code below. “* The function takes non-English text (in this case, French), translates it to English, and then runs sentiment analysis on the translated text. * The function returns both the **translated text** and the **sentiment result**.”
+
+```
+def custom_pipeline(text):
+    # Step 1: Translate the text to English if it is non-English (assuming French for now)
+    translation = translator(text)[0]['translation_text']
+    
+    # Step 2: Perform sentiment analysis on the translated English text
+    sentiment = sentiment_analyzer(translation)
+    
+    return {"translated_text": translation, "sentiment": sentiment[0]}
+```
+6. Finally, let's add code to demo our custom pipeline with multiple strings.
+
+```
+# Test the custom pipeline with multiple French inputs
+texts = [
+    "J'adore ce produit, il est incroyable !",  # Positive sentiment
+    "Ce restaurant est horrible, je ne reviendrai jamais."  # Negative sentiment
+]
+
+# Process each text through the custom pipeline
+for text in texts:
+    result = custom_pipeline(text)
+    print(f"Original: {text}")
+    print(f"Translated: {result['translated_text']}")
+    print(f"Sentiment: {result['sentiment']}")
+    print()
+```
+
+7. Save your changes to lab2.py and then run the code to see it in action.
+
+```
+python lab2.py
+```
+![running the custom pipeline](./images/hug27.png?raw=true "Running the custom pipeline")
+
+8. 
+1. In ou
+2. r repository, we have several different Python programs that utilize transformer models for standard types of LLM tasks. One of them is a simple a simple translation example. The file name is genai_translation.py. Open the file either by clicking on [**genai/translation.py**](./genai/translation.py) or by entering the command below in the codespace's terminal.
 
 ```
 code translation.py
