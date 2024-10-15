@@ -143,12 +143,22 @@ python lab2.py
 
 ![new token displayed](./images/hug30.png?raw=true "New token displayed")  
 
-3. Run the following command to login with your Hugging Face account credentials. This will prompt you for your Hugging Face token, which can be found in your Hugging Face account settings under Access Tokens. Copy and paste the token.
+3. While we are in the Hugging Face site, go ahead and create a new repository for the custom pipeline. Go to https://huggingface.co/new . (Alternatively, you can click on your profile icon in the top right corner and select New Model from the dropdown.) Then fill out the details of your model. You can just select "mit" for the license and keep the defaults for the remaining items. Then click on the "Create model" button at the bottom.
+
+![creating new repo ](./images/hug32.png?raw=true "Creating new repo") 
+![new repo ](./images/hug32.png?raw=true "New repo") 
+
+4. Run the following command to login with your Hugging Face account credentials. This will prompt you for your Hugging Face token, which can be found in your Hugging Face account settings under Access Tokens. 
 
 ```
 huggingface-cli login
 ```
-8. 
+
+5. At the prompt, paste your token. Note that you will not see it, but just paste it and hit Enter. At the prompt about accepting the token as a git credential, you can just respond 'n' since we don't have things setup for that.
+
+ ![token pasted](./images/hug31.png?raw=true "Token pasted")    
+
+5. 
 1. In ou
 2. r repository, we have several different Python programs that utilize transformer models for standard types of LLM tasks. One of them is a simple a simple translation example. The file name is genai_translation.py. Open the file either by clicking on [**genai/translation.py**](./genai/translation.py) or by entering the command below in the codespace's terminal.
 
