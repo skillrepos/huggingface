@@ -158,7 +158,49 @@ huggingface-cli login
 
  ![token pasted](./images/hug31.png?raw=true "Token pasted")    
 
-5. 
+5. Clone the repository down from Hugging Face to have it locally.
+
+```
+git clone https://huggingface.co/username/model_name
+cd model_name
+```
+6. Create a basic README.md file by running the first command below. Then paste in the remaining contents and save the file.
+
+```
+code README.md
+
+---
+license: mit
+---
+# Custom Translation-Sentiment Pipeline
+
+This pipeline translates French text to English and performs sentiment analysis on the translated text.
+
+## Usage:
+
+```python
+from custom_pipeline import CustomPipeline
+
+pipeline = CustomPipeline()
+result = pipeline("J'adore ce produit, il est incroyable !")
+print(result)
+
+```
+
+7. Copy your custom pipeline file from the previous lab to custom-pipe.py into the custom-pipe directory.
+
+```
+cp ../custom-pipeline1.py custom-pipe.py
+```
+
+8. For this step, you need your Hugging Face token again. Update your git remote url with the username and token with the first command. Then do a git push to get your changes into your Hugging Face repository. If you named your repo "custom-pipe", then that's what you would use for "<repo-name>". As an example, for my case I would set it to
+   git remote set-url origin https://techupskills:hf_rest-of-token@huggingface.co/techupskills/custom-pipe
+
+```
+git remote set-url origin https://<user_name>:<token>@huggingface.co/<user-name>/<repo-name>
+git push
+```
+9. Now, you can go to the Hugging Face site for your code and try it out. (TO-DO: figure this out)
 1. In ou
 2. r repository, we have several different Python programs that utilize transformer models for standard types of LLM tasks. One of them is a simple a simple translation example. The file name is genai_translation.py. Open the file either by clicking on [**genai/translation.py**](./genai/translation.py) or by entering the command below in the codespace's terminal.
 
