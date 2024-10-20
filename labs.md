@@ -365,7 +365,7 @@ code lab6.py
 ```
 
 3. Now, add the imports.
-```
+```python
 from datasets import load_dataset
 from langchain_community.document_loaders import DataFrameLoader
 from langchain_community.vectorstores import Chroma
@@ -383,7 +383,7 @@ from langchain.agents import AgentExecutor
 
 4. Next, we pull and load the dataset.
    
-```
+```python
 data = load_dataset("keivalya/MedQuad-MedicalQnADataset", split='train')
 data = data.to_pandas()
 data = data[0:100]
@@ -392,7 +392,8 @@ df_document = df_loader.load()
 ```
 
 5. Then, we split the text into chunks and load everything into our Chroma vector database.
-```
+
+```python
 from langchain.text_splitter import CharacterTextSplitter
 text_splitter = CharacterTextSplitter(chunk_size=1250,
                                       separator="\n",
@@ -406,8 +407,10 @@ embeddings = FastEmbedEmbeddings()
 # embed the chunks as vectors and load them into the database
 db_chroma = Chroma.from_documents(df_document, embeddings, persist_directory=CHROMA_DATA_PATH)
 ```
+
 6. Set up memory for the chat, and choose the LLM.
-```
+
+```python
 conversational_memory = ConversationBufferWindowMemory(
     memory_key='chat_history',
     k=4, #Number of messages stored in memory
@@ -418,7 +421,8 @@ llm = Ollama(model="llama3",temperature=0.0)
 ```
 
 7. Now, define the mechanism to use for the agent and retrieving data. ("qa" = question and answer) 
-```
+
+```python
 qa = RetrievalQA.from_chain_type(
     llm=llm,
     chain_type="stuff",
@@ -429,7 +433,7 @@ qa = RetrievalQA.from_chain_type(
 8. Define the tool itself (calling the "qa" function we just defined above as the tool).
 from langchain.agents import Tool
 
-```
+```python
 #Defining the list of tool objects to be used by LangChain.
 tools = [
    Tool(
@@ -444,7 +448,8 @@ tools = [
 ```
 
 8. Create the agent using the LangChain project *hwchase17/react-chat*.
-```
+
+```python
 prompt = hub.pull("hwchase17/react-chat")
 agent = create_react_agent(
    tools=tools,
@@ -466,7 +471,8 @@ agent_executor = AgentExecutor(agent=agent,
 ```
 
 9. Add the input processing loop.
-```
+
+```python
 while True:
     query = input("\nQuery: ")
     if query == "exit":
@@ -475,10 +481,13 @@ while True:
         continue
     agent_executor.invoke({"input": query})
 ```
+
 10. Now, **save the file** and run the code.
+
 ```
 python lab6.py
 ```
+
 11. You can prompt it with queries related to the info in the dataset, like:
 ```
 I have a patient that may have Botulism. How can I confirm the diagnosis?
