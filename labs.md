@@ -498,6 +498,86 @@ I have a patient that may have Botulism. How can I confirm the diagnosis?
 </p>
 </br></br>
 
+**Lab 5 - Creating a Sentiment Analysis Web App using Hugging Face and Gradio**
+
+**Purpose: In this lab, we'll create a web-based sentiment analysis application using Hugging Face transformers and Gradio. This app will analyze the sentiment of a given text and classify it as positive, neutral, or negative.**
+
+1. Create a new file (suggested name *lab5.py*)and open it in the editor. Add the imports for the necessary libraries. These imports bring in the model processing and tokenizer from Hugging Face, tools for numerical calculations, and the Gradio library to build the web interface.
+
+```python
+from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoConfig
+import numpy as np
+from scipy.special import softmax
+import gradio as gr
+```
+2. Now, we need to define the pre-trained model path that we want to use for sentiment analysis. We use one which is specifically trained on Twitter data for classifying sentiments.
+
+```python
+model_path = "cardiffnlp/twitter-roberta-base-sentiment-latest"
+```
+
+3. Next is loading the tokenizer from the pre-trained model. This converts the text input into a format the model can understand. It ultimately handles breaking sentences into tokens, padding, and converting tokens into numerical data.
+
+```python
+tokenizer = AutoTokenizer.from_pretrained(model_path)
+```
+
+4. Load the model configuration that contains the parameters for the model. This includes elements such as the number of the classes for classification and the architecture details. This is helpful in getting the right settings in place for the model.
+
+```python
+config = AutoConfig.from_pretrained(model_path)
+```
+
+5. And load the pre-trained model that will perform the sentiment classification.
+```python
+model = AutoModelForSequenceClassification.from_pretrained(model_path)
+```
+
+6. Now we define the function that performs the sentiment analysis. It works by tokenizing the input text and processing it using the model to predict probabilitiies. The probabilities are then converted to the corresponding sentiment labels (Negative, Neutral, Positive).
+
+```python
+def sentiment_analysis(text):
+    encoded_input = tokenizer(text, return_tensors='pt')
+    output = model(**encoded_input)
+    scores_ = output[0][0].detach().numpy()
+    scores_ = softmax(scores_)
+    labels = ['Negative', 'Neutral', 'Positive']
+    scores = {l: float(s) for (l, s) in zip(labels, scores_)}
+    return scores
+```
+
+7. We're ready to create the Gradio web interface for the app. This creates the interface, connects the previous function to process the input and displays the sentiment as an output label.
+
+```python
+demo = gr.Interface(
+    theme=gr.themes.Base(),
+    fn=sentiment_analysis,
+    inputs=gr.Textbox(placeholder="Write your text here..."),
+    outputs="label",
+    examples=[
+        ["I'm thrilled about the job offer!"],
+        ["The weather today is absolutely beautiful."],
+        ["I had a fantastic time at the concert last night."],
+        ["I'm so frustrated with this software glitch."],
+        ["The customer service was terrible at the store."],
+        ["I'm really disappointed with the quality of this product."]
+    ],
+    title='Sentiment Analysis App',
+    description='This app classifies a positive, neutral, or negative sentiment.'
+)
+```
+
+8. Finally, we'll add code to launch the web app.
+
+```python
+demo.launch(server_name="0.0.0.0", server_port=9200)
+```
+
+9. Now, you're ready to test the app. Run the code below to start it. Then you can input sentences to test the sentiment analysis.
+
+```
+python lab6.py
+```
 
 =======
 2. Take a look at the file contents.  Notice that we are pulling in a specific model ending with 'en-fr'. This is a clue that this model is trained for English to French translation. Let's find out more about it. In a browser, go to *https://huggingface.co/models* and search for the model name 'Helsinki-NLP/opus-mt-en-fr' (or you can just go to huggingface.co/Helsinki-NLP/opus-mt-en-fr).
