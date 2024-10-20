@@ -72,6 +72,7 @@ code sentiment.py
 ```
 
 2. Notice that it's using a Hugging Face pipeline to do the analysis (see line 5). We've seeded it with some random strings as data to work against. When ready, go ahead and run it with python in the codespace's terminal. In the output, observe which ones it classified as positive and which as negative and the relative scores.
+
 ```
 python sentiment.py
 ```
@@ -84,7 +85,7 @@ code lab2.py
 
 4. Now add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating French to English (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
 
-```
+```python
 from transformers import pipeline
 
 # Load the translation pipeline (for translating text to English)
@@ -96,7 +97,7 @@ sentiment_analyzer = pipeline("sentiment-analysis")
 
 5. Next, we'll define a custom pipeline function. Add the code below. “* The function takes non-English text (in this case, French), translates it to English, and then runs sentiment analysis on the translated text. * The function returns both the **translated text** and the **sentiment result**.”
 
-```
+```python
 def custom_pipeline(text):
     # Step 1: Translate the text to English if it is non-English (assuming French for now)
     translation = translator(text)[0]['translation_text']
@@ -106,9 +107,10 @@ def custom_pipeline(text):
     
     return {"translated_text": translation, "sentiment": sentiment[0]}
 ```
+
 6. Finally, let's add code to demo our custom pipeline with multiple strings.
 
-```
+```python
 # Test the custom pipeline with multiple French inputs
 texts = [
     "J'adore ce produit, il est incroyable !",  # Positive sentiment
@@ -158,13 +160,14 @@ huggingface-cli login
 
  ![token pasted](./images/hug31.png?raw=true "Token pasted")    
 
-5. Clone the repository down from Hugging Face to have it locally.
+6. Clone the repository down from Hugging Face to have it locally.
 
 ```
 git clone https://huggingface.co/username/model_name
 cd model_name
 ```
-6. Create a basic README.md file by running the first command below. Then paste in the remaining contents and save the file.
+
+7. Create a basic README.md file by running the first command below. Then paste in the remaining contents and save the file.
 
 ```
 code README.md
@@ -187,26 +190,168 @@ print(result)
 
 ```
 
-7. Copy your custom pipeline file from the previous lab to custom-pipe.py into the custom-pipe directory.
+8. Copy your custom pipeline file from the previous lab to custom-pipe.py into the custom-pipe directory.
 
 ```
 cp ../custom-pipeline1.py custom-pipe.py
 ```
 
-8. For this step, you need your Hugging Face token again. Update your git remote url with the username and token with the first command. Then do a git push to get your changes into your Hugging Face repository. If you named your repo "custom-pipe", then that's what you would use for "<repo-name>". As an example, for my case I would set it to
+9. For this step, you need your Hugging Face token again. Update your git remote url with the username and token with the first command. Then do a git push to get your changes into your Hugging Face repository. If you named your repo "custom-pipe", then that's what you would use for "<repo-name>". As an example, for my case I would set it to
    git remote set-url origin https://techupskills:hf_rest-of-token@huggingface.co/techupskills/custom-pipe
 
 ```
 git remote set-url origin https://<user_name>:<token>@huggingface.co/<user-name>/<repo-name>
 git push
 ```
-9. Now, you can go to the Hugging Face site for your code and try it out. (TO-DO: figure this out)
-1. In ou
-2. r repository, we have several different Python programs that utilize transformer models for standard types of LLM tasks. One of them is a simple a simple translation example. The file name is genai_translation.py. Open the file either by clicking on [**genai/translation.py**](./genai/translation.py) or by entering the command below in the codespace's terminal.
+10. Now, you can go to the Hugging Face site for your code and try it out. (TO-DO: figure this out)
+
+
+**Lab 4 - Fine-tuning a model with datasets**
+
+**Purpose: In this lab, we’ll see how to fine tune a model with a dataset using the transformers library**
+
+1. Create a new file named *lab4.py*. (Hint: You can use the command 'code lab4.py'.) In the new file, first import the necessary libraries for loading the model, tokenizer, dataset, and handling training with PyTorch
+   
+```python
+
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
+from datasets import load_dataset
+from torch.utils.data import DataLoader
+``` 
+
+2. Now, let's load a portion of the GLUE SST-2 dataset for sentiment analysis. This dataset contains sentences labeled as positive or negative. We're only going to use a very small percentage of the dataset (1%) to make this runnable in the time we have, but it will be enough to show a difference.
+   
+```python
+
+train_dataset = load_dataset('glue', 'sst2', split='train[:1%]')
+test_dataset = load_dataset('glue', 'sst2', split='validation[:1%]')
+```
+
+3. This next section loads a pre-trained model and tokenizer named *DistilBERT*. The tokenizer is used to convert text into tokens, and the model is fine-tuned for sequence classification tasks (binary sentiment analysis in this case).
+
+```python
+
+model_name = 'distilbert-base-uncased'
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForSequenceClassification.from_pretrained(model_name)
+```
+
+4. Now, we'll create a function to preprocess the dataset. This set of code transforms the text into a numerical format that the model can understand. It adds padding and does truncation where needed to get to a consistent input size.
+
+```python
+
+def preprocess_function(examples):
+    return tokenizer(examples['sentence'], truncation=True, padding='max_length', max_length=128)
+
+tokenized_train = train_dataset.map(preprocess_function, batched=True)
+tokenized_test = test_dataset.map(preprocess_function, batched=True)
+```
+
+5. We still need to convert the tokenized dataset into a format that PyTorch can understand and use. The code below accomplishes this, which is a crucial step for preparing our data to use for training and evaluation.
+   
+```python
+
+tokenized_train.set_format('torch', columns=['input_ids', 'attention_mask', 'label'])
+tokenized_test.set_format('torch', columns=['input_ids', 'attention_mask', 'label'])
+```
+
+6. Let's get a "before picture" by evaluating the model *before* fine-tuning. The eval is done by making predictions on the test dataset and calculating accuracy. This gives us a baseline for comparison.
+   
+```python
+
+test_dataloader = DataLoader(tokenized_test, batch_size=16)
+
+model.eval()
+
+correct = 0
+total = 0
+
+for batch in test_dataloader:
+    inputs = {'input_ids': batch['input_ids'], 'attention_mask': batch['attention_mask']}
+    labels = batch['label']
+    with torch.no_grad():
+        outputs = model(**inputs)
+    predictions = torch.argmax(outputs.logits, dim=-1)
+    correct += (predictions == labels).sum().item()
+    total += labels.size(0)
+
+pre_fine_tune_accuracy = correct / total
+print(f'Accuracy before fine-tuning: {pre_fine_tune_accuracy:.2f}')
+```
+
+7. The next set of code configures the training process with needed parameters. These include the number of epochs, batch size, logging settings, and output directory. The arguments define how the model is trained.
+   
+```python
+
+training_args = TrainingArguments(
+    output_dir='./results',
+    num_train_epochs=1,
+    per_device_train_batch_size=16,
+    logging_steps=10,
+    logging_dir='./logs',
+    eval_strategy='no',
+    save_strategy='no',
+    disable_tqdm=True,
+)
+```
+
+8. Now we initialize the Hugging Face Trainer class. This simplifies the training loop and handles optimization, logging, etc.
+
+```python
+
+trainer = Trainer(
+    model=model,
+    args=training_args,
+    train_dataset=tokenized_train,
+)
+```
+
+9. Finally, we can run the fine-tuning process on the pre-trained model using the training dataset. Fine-tuning adapts the model to the specific task (in this case, sentiment classification on the SST-2 dataset).
+
+```python
+
+trainer.train()
+```
+
+10. Now, we re-evaluate the model after fine-tuning to measure the performance improvement. This is done again by  comparing predictions to actual labels and calculates the accuracy.
+
+```python
+
+model.eval()
+
+correct = 0
+total = 0
+
+for batch in test_dataloader:
+    inputs = {'input_ids': batch['input_ids'], 'attention_mask': batch['attention_mask']}
+    labels = batch['label']
+    with torch.no_grad():
+        outputs = model(**inputs)
+    predictions = torch.argmax(outputs.logits, dim=-1)
+    correct += (predictions == labels).sum().item()
+    total += labels.size(0)
+
+post_fine_tune_accuracy = correct / total
+print(f'Accuracy after fine-tuning: {post_fine_tune_accuracy:.2f}')
+```
+
+
+11. Finally, we want to display the accuracy before and after fine-tuning to quantify the performance improvement.
+
+```python
+
+print(f'Accuracy before fine-tuning: {pre_fine_tune_accuracy:.2f}')
+print(f'Accuracy after fine-tuning: {post_fine_tune_accuracy:.2f}')
+```
+
+12. Execute the code to see the fine-tuning happen and the difference before and after. Remember we are only using a very small subset of the dataset, but we are also fine-tuning and testing with the same subset. This will take several minutes to run.
 
 ```
-code translation.py
+python lab4.py
 ```
+
+=======
 2. Take a look at the file contents.  Notice that we are pulling in a specific model ending with 'en-fr'. This is a clue that this model is trained for English to French translation. Let's find out more about it. In a browser, go to *https://huggingface.co/models* and search for the model name 'Helsinki-NLP/opus-mt-en-fr' (or you can just go to huggingface.co/Helsinki-NLP/opus-mt-en-fr).
 ![model search](./images/gaidd26.png?raw=true "model search")
 
