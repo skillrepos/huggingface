@@ -142,7 +142,7 @@ python lab2.py
 
 **Lab 3 - Publishing a custom pipeline on Hugging Face**
 
-**Purpose: In this lab, we’ll publish the custom pipeline we created in the last lab out on Hugging Face**
+**Purpose: In this lab, we’ll publish a more complete version of our custom pipeline out onto Hugging Face**
 </br></br></br>
 1. Make sure you are logged in to your Hugging Face account. We need to have an access token to work with. Go to this URL: https://huggingface.co/settings/tokens/new?tokenType=write to create a new token. (Alternatively, you can go to your user Settings, then select Access Tokens, then Create new token, and select Write for the token type.) Select a name for the token and then Create token.
 
@@ -152,29 +152,41 @@ python lab2.py
 
 ![new token displayed](./images/hug30.png?raw=true "New token displayed")  
 </br></br></br>
-3. While we are in the Hugging Face site, go ahead and create a new repository for the custom pipeline. Go to https://huggingface.co/new . (Alternatively, you can click on your profile icon in the top right corner and select New Model from the dropdown.) Then fill out the details of your model. You can just select "mit" for the license and keep the defaults for the remaining items. Then click on the "Create model" button at the bottom.
-
-![creating new repo ](./images/hug32.png?raw=true "Creating new repo") 
-![new repo ](./images/hug32.png?raw=true "New repo") 
-</br></br></br>
-4. Run the following command to login with your Hugging Face account credentials. This will prompt you for your Hugging Face token, which can be found in your Hugging Face account settings under Access Tokens. 
+3. While we are in the Hugging Face site, go ahead and create a new repository for the custom pipeline. For simplicity, we'll use the Hugging Face CLI for this.  (If you'd rather know how to do it through the interface, see the alternate instructions further down.) Ignore the warning about *git lfs* and just hit *Enter* at the *Proceed?* prompt.
 
 ```
-huggingface-cli login
+huggingface-cli repo create custom-pipe
 ```
+![new repo ](./images/hug39.png?raw=true "New repo") 
 </br></br></br>
-5. At the prompt, paste your token. Note that you will not see it, but just paste it and hit Enter. At the prompt about accepting the token as a git credential, you can just respond 'n' since we don't have things setup for that.
+(##Alternate method using the UI. Only do the option above or this one.##) Go to https://huggingface.co/new . (Alternatively, you can click on your profile icon in the top right corner and select New Model from the dropdown.) Then fill out the details of your model. You can just select "mit" for the license and keep the defaults for the remaining items. Then click on the "Create model" button at the bottom.
 
- ![token pasted](./images/hug31.png?raw=true "Token pasted")    
+![creating new repo ](./images/hug36.png?raw=true "Creating new repo") 
+![new repo ](./images/hug37.png?raw=true "New repo") 
 </br></br></br>
-6. Clone the repository down from Hugging Face to have it locally.
+4. Run the following command to login with your Hugging Face account credentials. Replace "*<YOUR_SAVED_TOKEN>*" with the actual value of the token you created in the earlier steps.  
 
 ```
-git clone https://huggingface.co/username/model_name
-cd model_name
+huggingface-cli login --token <YOUR_SAVED_TOKEN>
+```
+
+![logging in with token](./images/hug38.png?raw=true "Logging in with token") 
+</br></br></br>
+
+6. After logging in, clone the repository down from Hugging Face to have it locally.
+
+```
+git clone https://huggingface.co/<username>/custom-pipe
+cd custom-pipe
 ```
 </br></br></br>
-7. Create a basic README.md file by running the first command below. Then paste in the remaining contents and save the file.
+7. We have a version of the custom pipeline that was created in the last lab that has been turned into a Python class and setup in a way that it can be used as a pipeline. You can take a quick look at that file by clicking on [**extra/custom_pipeline.py**](.extra/custom_pipeline.py) or by entering the command below in the codespace's terminal.
+
+```bash
+code extra/custom_pipeline.py
+```
+
+8. Create a basic README.md file by running the first command below. Then paste in the remaining contents, ##substituting in your Hugging Face username where appropriate## and save the file.
 
 ```
 code README.md
@@ -184,31 +196,43 @@ license: mit
 ---
 # Custom Translation-Sentiment Pipeline
 
-This pipeline translates French text to English and performs sentiment analysis on the translated text.
+This pipeline translates English text to French and performs sentiment analysis on the translated text.
 
 ## Usage:
+```bash
+git clone https://huggingface.co/<username>/custom-pipe
+```
 
 ```python
-from custom_pipeline import CustomPipeline
+from custom_pipeline import TranslateAndSentimentPipeline()
 
-pipeline = CustomPipeline()
-result = pipeline("J'adore ce produit, il est incroyable !")
-print(result)
-
+pipeline = TranslateAndSentimentPipeline()
+english_text = "I like this movie. It's pretty good."
+result = pipeline(english_text)
+print("Original Text:", result["original_text"])
+print("Translated Text:", result["translated_text"])
+print("Sentiment:", result["sentiment"])
 ```
 </br></br></br>
-8. Copy your custom pipeline file from the previous lab to custom-pipe.py into the custom-pipe directory.
+9. Copy the custom pipeline file from the *extra* directory into the custom-pipe directory.
 
 ```
-cp ../custom-pipeline1.py custom-pipe.py
+cp ../extra/custom_pipeline.py .
 ```
 </br></br></br>
-9. For this step, you need your Hugging Face token again. Update your git remote url with the username and token with the first command. Then do a git push to get your changes into your Hugging Face repository. If you named your repo "custom-pipe", then that's what you would use for "<repo-name>". As an example, for my case I would set it to
+9. For this step, you may need your Hugging Face token again (unless you use the script in the alternate instructions below). Update your git remote url with the username and token. Then do the git commands to get your changes into your Hugging Face repository. If you named your repo "custom-pipe", then that's what you would use for "<repo-name>". As an example, for my case I would set it to
    git remote set-url origin https://techupskills:hf_rest-of-token@huggingface.co/techupskills/custom-pipe
 
 ```
 git remote set-url origin https://<user_name>:<token>@huggingface.co/<user-name>/<repo-name>
+git add .
+git commit -m "Add README and app"
 git push
+```
+**Alternative method: If you are running in the codespace environment, there is a script you can run instead of the first command that may be simpler. Pass your huggingface username for the first argument and your repo name for the second.**
+```
+Usage: ../scripts/update-remote.sh <huggingface-username> <huggingface-repo> 
+Example: ../scripts/update-remote.sh techupskills custom-pipe
 ```
 </br></br></br>
 10. Now, you can go to the Hugging Face site for your code and try it out. (TO-DO: figure this out)
