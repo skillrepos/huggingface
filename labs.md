@@ -22,20 +22,20 @@
 </br></br></br>  
 4. Switch back to your codespace. Create a new file named dgpt-med.py (or whatever you want to call it). Paste the code you copied from the model card page into the file. You can create the new file from the terminal using:
 
-```
+```bash
 code dgpt-med.py
 ```
 ![adding code](./images/dga46.png?raw=true "adding code")
 </br></br></br>
 5. Save your file. Now you can run your file by invoking it with python. You'll see it start to download the files associated with the model. This will take a bit of time to run.
-```
+```bash
 python dgpt-med.py
 ```
 ![running the model](./images/dga47.png?raw=true "running the model")
 </br></br></br>
 6. After the model loads, you'll see a *>> User:* prompt. You can enter a prompt or question here, and after some time, the model will provide a response.  **NOTE** This model is small and old and does not provide good responses usually or even ones that make sense. We are using it as a simple, quick demo only.
 
-```
+```python
 >> User: <prompt here>
 ```
 ![running the model](./images/dga48.png?raw=true "running the model")
@@ -67,19 +67,19 @@ Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-
 </br></br></br>
 1. In our repository, we have a program to do sentiment analysis. The file name is sentiment.py. Open the file either by clicking on [**sentiment.py**](./sentiment.py) or by entering the command below in the codespace's terminal.
 
-```
+```bash
 code sentiment.py
 ```
 </br></br></br>
 2. Notice that it's using a Hugging Face pipeline to do the analysis (see line 5). We've seeded it with some random strings as data to work against. When ready, go ahead and run it with python in the codespace's terminal. In the output, observe which ones it classified as positive and which as negative and the relative scores.
 
-```
+```bash
 python sentiment.py
 ```
 </br></br></br>
 3. Now let's create a custom pipeline. We'll create one that does translation from one language to another and then runs sentiment analysis on the results - basically combining two existing pipelines. Start out by creating a new file for the custom code with the command below.
 
-```
+```bash
 code lab2.py
 ```
 </br></br></br>
@@ -133,7 +133,7 @@ for text in texts:
 ```
 python lab2.py
 ```
-![running the custom pipeline](./images/hug34.png?raw=true "Running the custom pipeline")
+![running the custom pipeline](./images/hug35.png?raw=true "Running the custom pipeline")
 
 <p align="center">
 **[END OF LAB]**
