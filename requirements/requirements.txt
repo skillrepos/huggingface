@@ -1,21 +1,3 @@
-streamlit==1.35.0
-ollama==0.2.1
-openai==1.33.0
-numpy==1.24.4
-Pillow==10.3.0
-Requests==2.31.0
-torch==2.3.0
-torchvision==0.18.0
-transformers==4.40.2
-chromadb==0.4.24
-sentence_transformers
-crewai
-crewai_tools
-langchain_community==0.2.6
-fastembed==0.3.2
-duckduckgo-search
-SentencePiece
-
 transformers
 gradio
 scipy
@@ -23,12 +5,12 @@ numpy
 torch
 datasets
 langchain_community.document_loaders
-langchain_community.vectorstores import Chroma
-langchain.text_splitter import CharacterTextSplitter
-langchain_community.llms import Ollama 
-langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-langchain.prompts import ChatPromptTemplate
-langchain.chains.conversation.memory import ConversationBufferWindowMemory
+langchain_community.vectorstoresa
+langchain.text_splitter
+langchain_community.llms 
+langchain_community.embeddings.fastembed
+langchain.promptse
+langchain.chains.conversation.memory
 langchain.chains 
 langchain.agents 
 langchain 
