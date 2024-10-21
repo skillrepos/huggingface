@@ -186,11 +186,12 @@ cd custom-pipe
 code extra/custom_pipeline.py
 ```
 
-8. Create a basic README.md file by running the first command below. Then paste in the remaining contents, ##substituting in your Hugging Face username where appropriate## and save the file.
+8. Create a basic README.md file by running the first command below. Then paste in the remaining contents, **substituting in your Hugging Face username where appropriate** and save the file.
 
 ```
 code README.md
-
+```
+```
 ---
 license: mit
 ---
@@ -199,11 +200,9 @@ license: mit
 This pipeline translates English text to French and performs sentiment analysis on the translated text.
 
 ## Usage:
-```bash
-git clone https://huggingface.co/<username>/custom-pipe
-```
 
-```python
+git clone https://huggingface.co/<username>/custom-pipe
+
 from custom_pipeline import TranslateAndSentimentPipeline()
 
 pipeline = TranslateAndSentimentPipeline()
@@ -220,6 +219,18 @@ print("Sentiment:", result["sentiment"])
 cp ../extra/custom_pipeline.py .
 ```
 </br></br></br>
+9. Now, we'll upload the readme and the app to the Hugging Face repository. We can do this with standard Git commands, but we can do it most easily with the CLI's *upload* command. Make sure you are in the directory with the app and README, then run the command below.
+
+```
+huggingface-cli upload custom-pipe .
+```
+After this runs, you should see output indicating your files were uploaded to the repository. 
+![uploading](./images/hug40.png?raw=true "Uploading") 
+
+You can also see the updated content in your Hugging Face repo.
+
+![updated repo](./images/hug41.png?raw=true "Updated repo") 
+
 9. For this step, you may need your Hugging Face token again (unless you use the script in the alternate instructions below). Update your git remote url with the username and token. Then do the git commands to get your changes into your Hugging Face repository. If you named your repo "custom-pipe", then that's what you would use for "<repo-name>". As an example, for my case I would set it to
    git remote set-url origin https://techupskills:hf_rest-of-token@huggingface.co/techupskills/custom-pipe
 
