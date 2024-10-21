@@ -7,3 +7,4 @@ datasets
 langchain_community
 langchain 
 sentencepiece
+sacremoses
