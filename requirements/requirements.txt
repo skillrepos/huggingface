@@ -15,3 +15,20 @@ langchain_community==0.2.6
 fastembed==0.3.2
 duckduckgo-search
 SentencePiece
+
+transformers
+gradio
+scipy
+numpy
+torch
+datasets
+langchain_community.document_loaders
+langchain_community.vectorstores import Chroma
+langchain.text_splitter import CharacterTextSplitter
+langchain_community.llms import Ollama 
+langchain_community.embeddings.fastembed import FastEmbedEmbeddings
+langchain.prompts import ChatPromptTemplate
+langchain.chains.conversation.memory import ConversationBufferWindowMemory
+langchain.chains 
+langchain.agents 
+langchain 
