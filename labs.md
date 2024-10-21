@@ -376,7 +376,7 @@ print(f'Accuracy before fine-tuning: {pre_fine_tune_accuracy:.2f}')
 print(f'Accuracy after fine-tuning: {post_fine_tune_accuracy:.2f}')
 ```
 </br></br></br>
-12. Execute the code to see the fine-tuning happen and the difference before and after. Remember we are only using a very small subset of the dataset, but we are also fine-tuning and testing with the same subset. This will take several minutes to run.
+12. Save the file and execute the code to see the fine-tuning happen and the difference before and after. Remember we are only using a very small subset of the dataset, but we are also fine-tuning and testing with the same subset. This will take several minutes to run.
 
 ```
 python lab4.py
