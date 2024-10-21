@@ -4,13 +4,5 @@ scipy
 numpy
 torch
 datasets
-langchain_community.document_loaders
-langchain_community.vectorstoresa
-langchain.text_splitter
-langchain_community.llms 
-langchain_community.embeddings.fastembed
-langchain.promptse
-langchain.chains.conversation.memory
-langchain.chains 
-langchain.agents 
+langchain_community
 langchain 
