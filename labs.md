@@ -65,7 +65,7 @@ Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-
 
 **Purpose: In this lab, we’ll see how to interact with Hugging Face pipelines and create a custom pipeline**
 </br></br></br>
-1. In our repository, we have a program to do sentiment analysis. The file name is sentiment.py. Open the file either by clicking on [**genai/sentiment.py**](./genai/sentiment.py) or by entering the command below in the codespace's terminal.
+1. In our repository, we have a program to do sentiment analysis. The file name is sentiment.py. Open the file either by clicking on [**sentiment.py**](./sentiment.py) or by entering the command below in the codespace's terminal.
 
 ```
 code sentiment.py
