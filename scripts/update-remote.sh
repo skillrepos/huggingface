@@ -1,2 +1,3 @@
 HUGGINGFACE_TOKEN=$(cat /home/vscode/.cache/huggingface/token)
-git remote set-url origin https://$1:$HUGGINGFACE_TOKEN@huggingface.co/$1/$2
+HUGGINGFACE_USER=$(huggingface-cli whoami)
+git remote set-url origin https://$HUGGINGFACE_USER:$HUGGINGFACE_TOKEN@huggingface.co/$HUGGINGFACE_USER/$1
