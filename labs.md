@@ -83,15 +83,15 @@ python sentiment.py
 code lab2.py
 ```
 </br></br></br>
-4. Now add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating French to English (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
+4. Now add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating English to French (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
 
 ```python
 from transformers import pipeline
 
-# Load the translation pipeline (for translating text to English)
-translator = pipeline("translation", model="Helsinki-NLP/opus-mt-fr-en")
+# Load the translation pipeline (for translating text to French)
+translator = pipeline("translation", model="Helsinki-NLP/opus-mt-en-fr")
 
-# Load the sentiment analysis pipeline (to classify English text)
+# Load the sentiment analysis pipeline (to classify French text)
 sentiment_analyzer = pipeline("sentiment-analysis")
 ```
 </br></br></br>
@@ -99,7 +99,7 @@ sentiment_analyzer = pipeline("sentiment-analysis")
 
 ```python
 def custom_pipeline(text):
-    # Step 1: Translate the text to English if it is non-English (assuming French for now)
+    # Step 1: Translate the text to French if it is non-French (assuming English for now)
     translation = translator(text)[0]['translation_text']
     
     # Step 2: Perform sentiment analysis on the translated English text
@@ -108,14 +108,16 @@ def custom_pipeline(text):
     return {"translated_text": translation, "sentiment": sentiment[0]}
 ```
 </br></br></br>
-6. Finally, let's add code to demo our custom pipeline with multiple strings.
+6. Finally, let's add code to allow using our custom pipeline with multiple strings.
 
 ```python
-# Test the custom pipeline with multiple French inputs
-texts = [
-    "J'adore ce produit, il est incroyable !",  # Positive sentiment
-    "Ce restaurant est horrible, je ne reviendrai jamais."  # Negative sentiment
-]
+# Provide the custom pipeline with multiple English inputs if desired
+texts = []
+while True:
+    line = input("Enter a string (leave blank to stop): ")
+    if not line:
+        break
+    texts.append(line)
 
 # Process each text through the custom pipeline
 for text in texts:
@@ -131,7 +133,7 @@ for text in texts:
 ```
 python lab2.py
 ```
-![running the custom pipeline](./images/hug27.png?raw=true "Running the custom pipeline")
+![running the custom pipeline](./images/hug34.png?raw=true "Running the custom pipeline")
 
 <p align="center">
 **[END OF LAB]**
