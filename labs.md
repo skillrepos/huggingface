@@ -231,22 +231,7 @@ You can also see the updated content in your Hugging Face repo.
 
 ![updated repo](./images/hug41.png?raw=true "Updated repo") 
 
-9. For this step, you may need your Hugging Face token again (unless you use the script in the alternate instructions below). Update your git remote url with the username and token. Then do the git commands to get your changes into your Hugging Face repository. If you named your repo "custom-pipe", then that's what you would use for "<repo-name>". As an example, for my case I would set it to
-   git remote set-url origin https://techupskills:hf_rest-of-token@huggingface.co/techupskills/custom-pipe
-
-```
-git remote set-url origin https://<user_name>:<token>@huggingface.co/<user-name>/<repo-name>
-git add .
-git commit -m "Add README and app"
-git push
-```
-**Alternative method: If you are running in the codespace environment, there is a script you can run instead of the first command that may be simpler. Pass your huggingface username for the first argument and your repo name for the second.**
-```
-Usage: ../scripts/update-remote.sh <huggingface-username> <huggingface-repo> 
-Example: ../scripts/update-remote.sh techupskills custom-pipe
-```
-</br></br></br>
-10. Now, you can go to the Hugging Face site for your code and try it out. (TO-DO: figure this out)
+10. Now if you or someone want to use the custom pipeline, you can clone down the repo (or use the *huggingface-cli download <username>/<model-repo>* command. Then you can use the example code in the README to try it out if you want.
 
 <p align="center">
 **[END OF LAB]**
