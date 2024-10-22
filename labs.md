@@ -386,154 +386,7 @@ python lab4.py
 </p>
 </br></br>
 
-**Lab 5 - Using datasets with agents and RAG**
-
-**Purpose: In this lab, we’ll see how to use datasets from Hugging Face with other frameworks, agents, and RAG.**
-</br></br></br>
-1. In this lab, we'll download a medical dataset, parse it into a vector database, and create an agent with a tool to help us get answers. First,let's take a look at a dataset of information we'll be using for our RAG context. We'll be using a medical Q&A dataset called [**keivalya/MedQuad-MedicalQnADataset**](https://huggingface.co/datasets/keivalya/MedQuad-MedicalQnADataset). You can go to the page for it on HuggingFace.co and view some of it's data or explore it a bit if you want. To get there, either click on the link above in this step or go to HuggingFace.co and search for "keivalya/MedQuad-MedicalQnADataset" and follow the links.
-   
-![dataset on huggingface](./images/hug19.png?raw=true "dataset on huggingface")    
-</br></br></br>
-2. Now, let's create the Python file that will pull the dataset, store it in the vector database and invoke an agent with the tool to use it as RAG. First, create a new file for the project.
-```
-code lab5.py
-```
-</br></br></br>
-3. Now, add the imports.
-```python
-from datasets import load_dataset
-from langchain_community.document_loaders import DataFrameLoader
-from langchain_community.vectorstores import Chroma
-from langchain.text_splitter import CharacterTextSplitter
-from langchain_community.llms import Ollama 
-from langchain_community.embeddings.fastembed import FastEmbedEmbeddings
-from langchain.prompts import ChatPromptTemplate
-from langchain.chains.conversation.memory import ConversationBufferWindowMemory
-from langchain.chains import RetrievalQA
-from langchain.agents import Tool
-from langchain.agents import create_react_agent
-from langchain import hub
-from langchain.agents import AgentExecutor
-```
-</br></br></br>
-4. Next, we pull and load the dataset.
-   
-```python
-data = load_dataset("keivalya/MedQuad-MedicalQnADataset", split='train')
-data = data.to_pandas()
-data = data[0:100]
-df_loader = DataFrameLoader(data, page_content_column="Answer")
-df_document = df_loader.load()
-```
-</br></br></br>
-5. Then, we split the text into chunks and load everything into our Chroma vector database.
-
-```python
-from langchain.text_splitter import CharacterTextSplitter
-text_splitter = CharacterTextSplitter(chunk_size=1250,
-                                      separator="\n",
-                                      chunk_overlap=100)
-texts = text_splitter.split_documents(df_document)
-
-# set some config variables for ChromaDB
-CHROMA_DATA_PATH = "vdb_data/"
-embeddings = FastEmbedEmbeddings()  
-
-# embed the chunks as vectors and load them into the database
-db_chroma = Chroma.from_documents(df_document, embeddings, persist_directory=CHROMA_DATA_PATH)
-```
-</br></br></br>
-6. Set up memory for the chat, and choose the LLM.
-
-```python
-conversational_memory = ConversationBufferWindowMemory(
-    memory_key='chat_history',
-    k=4, #Number of messages stored in memory
-    return_messages=True #Must return the messages in the response.
-)
-
-llm = Ollama(model="llama3",temperature=0.0)
-```
-</br></br></br>
-7. Now, define the mechanism to use for the agent and retrieving data. ("qa" = question and answer) 
-
-```python
-qa = RetrievalQA.from_chain_type(
-    llm=llm,
-    chain_type="stuff",
-    retriever=db_chroma.as_retriever()
-)
-```
-</br></br></br>
-8. Define the tool itself (calling the "qa" function we just defined above as the tool).
-from langchain.agents import Tool
-
-```python
-#Defining the list of tool objects to be used by LangChain.
-tools = [
-   Tool(
-       name='Medical KB',
-       func=qa.run,
-       description=(
-           'use this tool when answering medical knowledge queries to get '
-           'more information about the topic'
-       )
-   )
-]
-```
-</br></br></br>
-9. Create the agent using the LangChain project *hwchase17/react-chat*.
-
-```python
-prompt = hub.pull("hwchase17/react-chat")
-agent = create_react_agent(
-   tools=tools,
-   llm=llm,
-   prompt=prompt,
-)
-
-# Create an agent executor by passing in the agent and tools
-from langchain.agents import AgentExecutor
-agent_executor = AgentExecutor(agent=agent,
-                               tools=tools,
-                               verbose=True,
-                               memory=conversational_memory,
-                               max_iterations=30,
-                               max_execution_time=600,
-                               #early_stopping_method='generate',
-                               handle_parsing_errors=True
-                               )
-```
-</br></br></br>
-10. Add the input processing loop.
-
-```python
-while True:
-    query = input("\nQuery: ")
-    if query == "exit":
-        break
-    if query.strip() == "":
-        continue
-    agent_executor.invoke({"input": query})
-```
-</br></br></br>
-11. Now, **save the file** and run the code.
-
-```
-python lab5.py
-```
-</br></br></br>
-12. You can prompt it with queries related to the info in the dataset, like:
-```
-I have a patient that may have Botulism. How can I confirm the diagnosis?
-```
-
-<p align="center">
-**[END OF LAB]**
-</p>
-</br></br>
-
-**Lab 6 - Creating a Sentiment Analysis Web App using Hugging Face and Gradio**
+**Lab 5 - Creating a Sentiment Analysis Web App using Hugging Face and Gradio**
 
 **Purpose: In this lab, we'll create a web-based sentiment analysis application using Hugging Face transformers and Gradio. This app will analyze the sentiment of a given text and classify it as positive, neutral, or negative.**
 </br></br></br>
@@ -585,7 +438,7 @@ def sentiment_analysis(text):
 7. We're ready to create the Gradio web interface for the app. This creates the interface, connects the previous function to process the input and displays the sentiment as an output label.
 
 ```python
-demo = gr.Interface(
+gradio_app = gr.Interface(
     theme=gr.themes.Base(),
     fn=sentiment_analysis,
     inputs=gr.Textbox(placeholder="Write your text here..."),
@@ -606,7 +459,7 @@ demo = gr.Interface(
 8. Finally, we'll add code to launch the web app.
 
 ```python
-demo.launch(server_name="0.0.0.0", server_port=9300, share=True)
+gradio_app.launch(share=True)
 ```
 </br></br></br>
 9. Now, you're ready to test the app. Run the code below to start it. Then you can input sentences to test the sentiment analysis.
@@ -619,7 +472,7 @@ python app.py
 
 ![public address](./images/hug42.png?raw=true "Public address") 
 
-Alternatively, you can go to the PORTS tab in the codespace, find the row for port 9300, and click on the globe icon to open the application.
+Alternatively, you can go to the PORTS tab in the codespace, find the row for the app, and click on the globe icon to open the application.
 ![open from codespace](./images/hug43.png?raw=true "Open from codespace") 
 </br></br></br>
 11. When the app is opened, you can click on one of the pre-populated examples or type your own in and click on *Submit* to see the sentiment result.
@@ -629,7 +482,7 @@ Alternatively, you can go to the PORTS tab in the codespace, find the row for po
 </p>
 </br></br>
 
-**Lab 7 - Sharing our app to Hugging Face Spaces**
+**Lab 6 - Sharing our app to Hugging Face Spaces**
 
 **Purpose - In this lab, we'll share the Gradio app we created in the last lab to a Hugging Face Space**
 </br></br></br>
