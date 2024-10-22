@@ -7,7 +7,7 @@
 
 **NOTE: To copy and paste in the codespace, you may need to use keyboard commands - CTRL-C and CTRL-V. Chrome may work best for this.**
 
-**Lab 1 - Setup and Explore Hugging Face**
+**Lab 1 - Exploring Hugging Face**
 
 **Purpose: In this lab, we'll start to get familiar with the Hugging Face platform and see how to run simple tasks using pre-trained models.**
 </br></br></br>
