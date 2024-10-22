@@ -10,3 +10,4 @@ sentencepiece
 sacremoses
 fastembed
 chromadb
+langchain-ollama
