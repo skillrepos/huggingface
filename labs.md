@@ -537,7 +537,7 @@ I have a patient that may have Botulism. How can I confirm the diagnosis?
 
 **Purpose: In this lab, we'll create a web-based sentiment analysis application using Hugging Face transformers and Gradio. This app will analyze the sentiment of a given text and classify it as positive, neutral, or negative.**
 </br></br></br>
-1. Create a new file (suggested name *app.py*)and open it in the editor. Add the imports for the necessary libraries. These imports bring in the model processing and tokenizer from Hugging Face, tools for numerical calculations, and the Gradio library to build the web interface.
+1. Create a new file (suggested name *app.py*) and open it in the editor. Add the imports for the necessary libraries. These imports bring in the model processing and tokenizer from Hugging Face, tools for numerical calculations, and the Gradio library to build the web interface.
 
 ```python
 from transformers import AutoModelForSequenceClassification, AutoTokenizer, AutoConfig
@@ -591,22 +591,22 @@ demo = gr.Interface(
     inputs=gr.Textbox(placeholder="Write your text here..."),
     outputs="label",
     examples=[
-        ["I'm thrilled about the job offer!"],
-        ["The weather today is absolutely beautiful."],
-        ["I had a fantastic time at the concert last night."],
-        ["I'm so frustrated with this software glitch."],
-        ["The customer service was terrible at the store."],
-        ["I'm really disappointed with the quality of this product."]
+        ["I'm excited about the movie!"],
+        ["The weather is great today."],
+        ["That meeting was a total waste of time!"],
+        ["I'm frustrated with the outcome."],
+        ["That was an ok visit."],
+        ["I'm could take it or leave it."]
     ],
     title='Sentiment Analysis App',
-    description='This app classifies a positive, neutral, or negative sentiment.'
+    description='This app classifies a sentiment as positive, neutral, or negative.'
 )
 ```
 </br></br></br>
 8. Finally, we'll add code to launch the web app.
 
 ```python
-demo.launch(server_name="0.0.0.0", server_port=9200)
+demo.launch(server_name="0.0.0.0", server_port=9300, share=True)
 ```
 </br></br></br>
 9. Now, you're ready to test the app. Run the code below to start it. Then you can input sentences to test the sentiment analysis.
@@ -615,6 +615,7 @@ demo.launch(server_name="0.0.0.0", server_port=9200)
 python app.py
 ```
 
+10. After tis starts
 <p align="center">
 **[END OF LAB]**
 </p>
