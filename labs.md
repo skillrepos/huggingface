@@ -674,6 +674,7 @@ huggingface-cli upload --repo-type space sentiment-analysis-app .
 ![viewing the build log](./images/hug46.png?raw=true "Viewing the build log") 
 </br></br></br>
 8. When the build process is complete and the ap is deployed, you can switch back to the "App" page to see your Gradio app live on the Hugging Face Space. Test it by entering some text in the input box and see the sentiment classification.
+![app running in space](./images/hug47.png?raw=true "App running in space")
 </br></br></br>
 9. You can share the URL of your space. It's
 
