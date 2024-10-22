@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 1.4 - 10/21/24
+## Revision 1.5 - 10/21/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -615,7 +615,15 @@ demo.launch(server_name="0.0.0.0", server_port=9300, share=True)
 python app.py
 ```
 
-10. After tis starts
+10. After this starts running, you should see a line that says "Running on public URL: <URL>". You can go to that address and see the running app.
+
+![public address](./images/hug42.png?raw=true "Public address") 
+
+Alternatively, you can go to the PORTS tab in the codespace, find the row for port 9300, and click on the globe icon to open the application.
+![open from codespace](./images/hug43.png?raw=true "Open from codespace") 
+</br></br></br>
+11. When the app is opened, you can click on one of the pre-populated examples or type your own in and click on *Submit* to see the sentiment result.
+![using the app](./images/hug44.png?raw=true "Using the app") 
 <p align="center">
 **[END OF LAB]**
 </p>
