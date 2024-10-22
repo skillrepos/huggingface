@@ -14,46 +14,46 @@
 1. In a browser, go to *https://huggingface.co/models*.
 </br></br></br>
 2. Let's search for another simple model to try out. In the search bar, enter the text *DialoGPT*. Look for and select the *microsoft/DialoGPT-medium* model. (Make sure not to select the *small* one.)
-  ![model search](./images/dga44.png?raw=true "model search")
+  ![model search](./images/hug48.png?raw=true "model search")
 </br></br></br>
 3. Let's see how we can quickly get up and running with this model. On the *Model Card* page for the *microsoft/DialoGPT-medium* model, if you scroll down, you'll see a *How to use* section with some code in it. Highlight that code and copy it so we can paste it in a file in our workspace.
 
-![code to use model](./images/dga45.png?raw=true "code to use model")
+![code to use model](./images/hug49.png?raw=true "code to use model")
 </br></br></br>  
 4. Switch back to your codespace. Create a new file named dgpt-med.py (or whatever you want to call it). Paste the code you copied from the model card page into the file. You can create the new file from the terminal using:
 
 ```bash
 code dgpt-med.py
 ```
-![adding code](./images/dga46.png?raw=true "adding code")
+![adding code](./images/hug50.png?raw=true "adding code")
 </br></br></br>
 5. Save your file. Now you can run your file by invoking it with python. You'll see it start to download the files associated with the model. This will take a bit of time to run.
 ```bash
 python dgpt-med.py
 ```
-![running the model](./images/dga47.png?raw=true "running the model")
+![running the model](./images/hug51.png?raw=true "running the model")
 </br></br></br>
 6. After the model loads, you'll see a *>> User:* prompt. You can enter a prompt or question here, and after some time, the model will provide a response.  **NOTE** This model is small and old and does not provide good responses usually or even ones that make sense. We are using it as a simple, quick demo only.
 
 ```python
 >> User: <prompt here>
 ```
-![running the model](./images/dga48.png?raw=true "running the model")
+![running the model](./images/hug52.png?raw=true "running the model")
 </br></br></br>
 7. Let's now switch to a different model. Go back to the Hugging Face search and look for *phi3-vision*. Find and select the entry for *microsoft/Phi-3-vision-128k-instruct*.
-![finding the phi3-vision model](./images/dga49.png?raw=true "finding the phi3-vision model")
+![finding the phi3-vision model](./images/hug53.png?raw=true "finding the phi3-vision model")
 </br></br></br>
 8. Switch to the *Files and versions* page to see the sizes of the files in the Git repository. Note the larger sizes of the model files themselves.
-![examining the model files](./images/dga53.png?raw=true "examining the model files")
+![examining the model files](./images/hug54.png?raw=true "examining the model files")
 </br></br></br>
 9. Now, let's see how we can try this model out with no setup on our part. Go back to the *Model card* tab, and scroll down to the *Resources and Technical Documentation* section. (This should be right after the *Model Summary* section.) Under that, select the entry for *Phi-3 on Azure AI Studio*.
-![Invoking model on Azure AI Studio](./images/dga54.png?raw=true "Invoking the model on Azure AI Studio")
+![Invoking model on Azure AI Studio](./images/hug55.png?raw=true "Invoking the model on Azure AI Studio")
 </br></br></br>
 10. This will start up a separate browser instance of Azure AI Studio with the model loaded so you can query it. In the prompt area, enter in a prompt to have the AI describe a picture. You can upload one, enter the URL of one on the web, or use the example one suggested below. After you submit your prompt, the model should return a description of the photo. (If you get a response like *"Sorry I can't assist with that."*, refresh the page and try again.)
 ```
 Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-cat-as-best-friends-looking-out-the-window-together.jpg?s=2048x2048&w=is&k=20&c=Do171m5e2DbPIlWDs1JfHn-g8Et_Hxb2AskHg4cRYY4=
 ```
-![Describing an image](./images/dga55.png?raw=true "Describing an image")
+![Describing an image](./images/hug56.png?raw=true "Describing an image")
 
 
 <p align="center">
