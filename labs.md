@@ -633,32 +633,25 @@ Alternatively, you can go to the PORTS tab in the codespace, find the row for po
 
 **Purpose - In this lab, we'll share the Gradio app we created in the last lab to a Hugging Face Space**
 </br></br></br>
-1. Make sure you're signed in to your Hugging Face account. Click on your profile icon in the top-right corner and select *New Space*.
+1. Make sure you're signed in to your Hugging Face account. We'll use the Hugging Face CLI again to create a new Space to upload our Gradio app to. Run the command below from the codespace terminal.
 
-![new space](./images/hug34.png?raw=true "New Space")
-</br></br></br>
-2. Fill out the form:
-    - **Name:** Provide a name for your space (e.g., sentiment-analysis-app).
-    - **License:** Choose a license or just choose *MIT*.
-    - **Visibility:** Select *Public*.
-    - **SDK:** Select *Gradio*.
+```
+huggingface-cli repo create  --type space --space_sdk gradio -y sentiment-analysis-app
+```
+After this, you'll be able to see a link for the new repo as well as other information.
+![creating the space](./images/hug45.png?raw=true "Creating the space") 
 
-![complete form](./images/hug23.png?raw=true "Complete form")  
-</br></br></br>
-3. You can keep the defaults for the rest of the options. Click on the "Create Space" button to finish creating the new space.
+If you want, you can open up that link and look at the empty space on huggingface.co.
 
-![finish form](./images/hug24.png?raw=true "Finish form")  
-</br></br></br>
-4. You'll now be on the screen with guidance for how to upload your Gradio app to the new space. Near the top of the page you'll find the command to clone your repo down. Clone your repository down and then change into the directory.
-
+2. Now, we're ready to clone down the new space area.
 ```bash
 git clone https://huggingface.co/spaces/YOUR_USERNAME/sentiment-analysis-app
 cd sentiment-analysis-app
 ```
-  
+There's also clone guidance on the website.  
 ![clone guidance](./images/hug26.png?raw=true "Clone guidance")  
 </br></br></br>
-5. Create a *requirements.txt* file with these contents and save it.
+5. Create a *requirements.txt* file with these contents and save it. (Hint: *code requirements.txt*, but make sure you're in the cloned directory.)
 
 ```
 transformers
@@ -673,7 +666,7 @@ numpy
 cp ../app.py .
 git add app.py requirements.txt
 git commit -m "Add Gradio sentiment analysis app"
-git push
+huggingface-cli upload sentiment-analysis-app .
 ```
 </br></br></br>
 7. Once pushed, the Hugging Face platform will automatically build and deploy your Gradio app. You can look at the build log on the site and monitor progress.
