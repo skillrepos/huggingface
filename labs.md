@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 1.5 - 10/21/24
+## Revision 1.6 - 10/23/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -61,80 +61,125 @@ Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-
 </p>
 </br></br>
 
-**Lab 2 - Creating a custom pipeline**
 
-**Purpose: In this lab, we’ll see how to interact with Hugging Face pipelines and create a custom pipeline**
-</br></br></br>
-1. In our repository, we have a program to do sentiment analysis. The file name is sentiment.py. Open the file either by clicking on [**sentiment.py**](./sentiment.py) or by entering the command below in the codespace's terminal.
+**Lab 2 - Demonstrating how to use Hugging Face in programming**
 
-```bash
-code sentiment.py
-```
+**Purpose: In this lab, we’ll construct a Python program that demonstrates how to use entities from HuggingFace.co to accomplish a meaningful task.**
 </br></br></br>
-2. Notice that it's using a Hugging Face pipeline to do the analysis (see line 5). We've seeded it with some random strings as data to work against. When ready, go ahead and run it with python in the codespace's terminal. In the output, observe which ones it classified as positive and which as negative and the relative scores.
-
-```bash
-python sentiment.py
-```
-</br></br></br>
-3. Now let's create a custom pipeline. We'll create one that does translation from one language to another and then runs sentiment analysis on the results - basically combining two existing pipelines. Start out by creating a new file for the custom code with the command below.
+1. In this lab, we'll create a program that performs sentiment analysis on movie reviews from the IMDb dataset and summarizes negative reviews. It leverages multiple features from Hugging Face, including the datasets library and pre-trained models from the transformers library. To start, create a new file for our code.
 
 ```bash
 code lab2.py
 ```
 </br></br></br>
-4. Now add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating English to French (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
+2. First, import the necessary libraries from Hugging Face that we need. These are:
+*datasets.load_dataset: Loads datasets hosted on HuggingFace.co.
+*transformers.pipeline: Provides easy-to-use interfaces for various NLP tasks using pre-trained models.
+
+Add the code below into the *lab2.py* file.
 
 ```python
-from transformers import pipeline
-
-# Load the translation pipeline (for translating text to French)
-translator = pipeline("translation", model="Helsinki-NLP/opus-mt-en-fr")
-
-# Load the sentiment analysis pipeline (to classify French text)
-sentiment_analyzer = pipeline("sentiment-analysis")
+# Import necessary libraries from Hugging Face
+from datasets import load_dataset           # To load datasets from HuggingFace.co
+from transformers import pipeline           # For easy inference using pre-trained models
 ```
 </br></br></br>
-5. Next, we'll define a custom pipeline function. Add the code below. “* The function takes non-English text (in this case, French), translates it to English, and then runs sentiment analysis on the translated text. * The function returns both the **translated text** and the **sentiment result**.”
+3. Now, we load the IMDb dataset. (This is a widely used dataset for sentiment analysis tasks.) For purposes of the lab, we'll just select a sample of 10 reviews to look at. Add the code below.
 
 ```python
-def custom_pipeline(text):
-    # Step 1: Translate the text to French if it is non-French (assuming English for now)
-    translation = translator(text)[0]['translation_text']
+# Load the IMDb dataset from Hugging Face Datasets
+# This dataset contains 50,000 movie reviews labeled as positive or negative
+imdb_dataset = load_dataset('imdb')
+
+# Select a small sample of reviews for demonstration purposes
+sample_reviews = imdb_dataset['test'].select(range(10))  # Selecting first 10 reviews
+```
+</br></br></br>
+4. Now, we'll initialize two pipelines - one for sentiment analysis and one for summarization. The initialization calls will automatically download and load a pre-trained model that can be used for sentiment analysis or summarization, respectively.
+
+```python
+
+add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating English to French (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
+
+```python
+# Initialize a sentiment-analysis pipeline using a pre-trained model
+sentiment_analyzer = pipeline('sentiment-analysis')
+
+# Initialize a summarization pipeline using a pre-trained model
+summarizer = pipeline('summarization')
+```
+</br></br></br>
+5. Next, we'll add code to process the reviews. Here's what the sentiment analysis part does:
+
+ - Sentiment Analysis:
+   - We analyze the sentiment of each review.
+   - We truncate the text to the first 512 tokens to adhere to model input limitations and improve performance.
+   - The result is a dictionary containing the label ('POSITIVE' or 'NEGATIVE') and a confidence score.
+
+Add the code below.
+
+```python
+# Iterate over the sample reviews and perform sentiment analysis and summarization
+for idx, review in enumerate(sample_reviews):
+    text = review['text']  # The review text
+    # Perform sentiment analysis
+    sentiment = sentiment_analyzer(text[:512])[0]  # Truncate text to 512 tokens for performance
     
-    # Step 2: Perform sentiment analysis on the translated English text
-    sentiment = sentiment_analyzer(translation)
+    # Print the review index and predicted sentiment
+    print(f"Review #{idx + 1} Sentiment: {sentiment['label']} (Score: {sentiment['score']:.4f})")
     
-    return {"translated_text": translation, "sentiment": sentiment[0]}
 ```
-</br></br></br>
-6. Finally, let's add code to allow using our custom pipeline with multiple strings.
+
+6. And, now add the code to do the summarization if the review is negative.
+   
+ - Conditional Summarization:
+   - If a review is negative, we generate a summary of the review.
+   - We truncate the text to the first 1024 tokens to prevent errors due to model input size limitations.
+   - We specify max_length and min_length to control the length of the summary.
+  
+Add the code below with the printing of the results.
 
 ```python
-# Provide the custom pipeline with multiple English inputs if desired
-texts = []
-while True:
-    line = input("Enter a string (leave blank to stop): ")
-    if not line:
-        break
-    texts.append(line)
-
-# Process each text through the custom pipeline
-for text in texts:
-    result = custom_pipeline(text)
-    print(f"Original: {text}")
-    print(f"Translated: {result['translated_text']}")
-    print(f"Sentiment: {result['sentiment']}")
-    print()
+# If the sentiment is negative, provide a summary of the review
+    if sentiment['label'] == 'NEGATIVE':
+        # Summarize the review text (truncate to 1024 tokens to avoid errors)
+        summary = summarizer(text[:1024], max_length=50, min_length=25, do_sample=False)[0]['summary_text']
+        print(f"Summary of Negative Review #{idx + 1}:")
+        print(summary)
+    
+    print("-" * 80)  # Separator between reviews
 ```
-</br></br></br>
-7. Save your changes to lab2.py and then run the code to see it in action.
+
+7. Save your changes and run the file. After running it, you should see output for the first 10 reviews and summarizations for ones that are determined to be negative. Note that the first time you run it, it will download the required pre-trained models automatically from HuggingFace.co.
 
 ```
 python lab2.py
 ```
-![running the custom pipeline](./images/hug35.png?raw=true "Running the custom pipeline")
 
+![running the example](./images/hug48.png?raw=true "Running the example")
+
+</br></br></br>
+8. This example demonstrates several features from Hugging Face:
+- Loading Datasets with datasets Library:
+  - Showcases how to load and manipulate datasets hosted on HuggingFace.co using the datasets library.
+    
+- Using Pre-trained Models with transformers Pipeline:
+  - Demonstrates using pre-trained models for inference tasks like sentiment analysis and summarization without deep diving into model architectures.
+    
+- Combining Multiple NLP Tasks:
+  - The program performs both sentiment analysis and summarization, showing how to chain different NLP tasks together.
+   
+- Handling Model Input Limitations:
+  - Illustrates how to manage input sizes (e.g., truncating text) to comply with model constraints.
+   
+- Customizing Pipeline Parameters:
+  - Shows how to adjust parameters like max_length, min_length, and do_sample to control model output.
+
+- Interpreting Model Outputs:
+  - Parses and utilizes the outputs of the pipelines, such as extracting labels and confidence scores.
+
+- Efficient Data Processing:
+  - Uses dataset selection and iteration to process and analyze data samples efficiently.
 <p align="center">
 **[END OF LAB]**
 </p>
