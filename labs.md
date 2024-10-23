@@ -156,7 +156,7 @@ Add the code below with the printing of the results.
 python lab2.py
 ```
 
-![running the example](./images/hug49.png?raw=true "Running the example")
+![running the example](./images/hug57.png?raw=true "Running the example")
 
 </br></br></br>
 8. This example demonstrates several features from Hugging Face:
