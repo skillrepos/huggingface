@@ -149,7 +149,7 @@ Add the code below with the printing of the results.
     
     print("-" * 80)  # Separator between reviews
 ```
-
+</br></br></br>
 7. Save your changes and run the file. After running it, you should see output for the first 10 reviews and summarizations for ones that are determined to be negative. Note that the first time you run it, it will download the required pre-trained models automatically from HuggingFace.co.
 
 ```
