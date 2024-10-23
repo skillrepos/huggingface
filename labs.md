@@ -156,30 +156,30 @@ Add the code below with the printing of the results.
 python lab2.py
 ```
 
-![running the example](./images/hug48.png?raw=true "Running the example")
+![running the example](./images/hug49.png?raw=true "Running the example")
 
 </br></br></br>
 8. This example demonstrates several features from Hugging Face:
 - Loading Datasets with datasets Library:
-  - Showcases how to load and manipulate datasets hosted on HuggingFace.co using the datasets library.
+  - Showcasing how to load and manipulate datasets hosted on HuggingFace.co using the datasets library.
     
 - Using Pre-trained Models with transformers Pipeline:
-  - Demonstrates using pre-trained models for inference tasks like sentiment analysis and summarization without deep diving into model architectures.
+  - Demonstrating using pre-trained models for inference tasks like sentiment analysis and summarization, without deep diving into the model architectures.
     
 - Combining Multiple NLP Tasks:
-  - The program performs both sentiment analysis and summarization, showing how to chain different NLP tasks together.
+  - Performing both sentiment analysis and summarization, showing how to chain different NLP tasks together.
    
 - Handling Model Input Limitations:
-  - Illustrates how to manage input sizes (e.g., truncating text) to comply with model constraints.
+  - Illustrating how to manage input sizes (e.g., truncating text) to comply with model constraints.
    
 - Customizing Pipeline Parameters:
-  - Shows how to adjust parameters like max_length, min_length, and do_sample to control model output.
+  - Showing how to adjust parameters (like max_length, min_length, and do_sample) to control model output.
 
 - Interpreting Model Outputs:
-  - Parses and utilizes the outputs of the pipelines, such as extracting labels and confidence scores.
+  - Parsing and using the outputs of the pipelines, such as extracting labels and confidence scores.
 
 - Efficient Data Processing:
-  - Uses dataset selection and iteration to process and analyze data samples efficiently.
+  - Using dataset selection and iteration to process and analyze data samples efficiently.
 <p align="center">
 **[END OF LAB]**
 </p>
