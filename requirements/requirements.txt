@@ -4,10 +4,6 @@ scipy
 numpy
 torch
 datasets
-langchain_community
-langchain 
 sentencepiece
 sacremoses
-fastembed
-chromadb
-langchain-ollama
+accelerate
