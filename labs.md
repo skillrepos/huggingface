@@ -187,7 +187,7 @@ python lab2.py
 
 **Lab 3 - Publishing a custom pipeline on Hugging Face**
 
-**Purpose: In this lab, we’ll publish a more complete version of our custom pipeline out onto Hugging Face**
+**Purpose: In this lab, we’ll publish a custom pipeline onto Hugging Face**
 </br></br></br>
 1. Make sure you are logged in to your Hugging Face account. We need to have an access token to work with. Go to this URL: https://huggingface.co/settings/tokens/new?tokenType=write to create a new token. (Alternatively, you can go to your user Settings, then select Access Tokens, then Create new token, and select Write for the token type.) Select a name for the token and then Create token.
 
@@ -204,7 +204,7 @@ huggingface-cli repo create custom-pipe
 ```
 ![new repo ](./images/hug39.png?raw=true "New repo") 
 </br></br></br>
-(##Alternate method using the UI. Only do the option above or this one.##) Go to https://huggingface.co/new . (Alternatively, you can click on your profile icon in the top right corner and select New Model from the dropdown.) Then fill out the details of your model. You can just select "mit" for the license and keep the defaults for the remaining items. Then click on the "Create model" button at the bottom.
+(**Alternate method using the UI. Only do the option above or this one.**) Go to https://huggingface.co/new . (Alternatively, you can click on your profile icon in the top right corner and select New Model from the dropdown.) Then fill out the details of your model. You can just select "mit" for the license and keep the defaults for the remaining items. Then click on the "Create model" button at the bottom.
 
 ![creating new repo ](./images/hug36.png?raw=true "Creating new repo") 
 ![new repo ](./images/hug37.png?raw=true "New repo") 
@@ -225,13 +225,13 @@ git clone https://huggingface.co/<username>/custom-pipe
 cd custom-pipe
 ```
 </br></br></br>
-7. We have a version of the custom pipeline that was created in the last lab that has been turned into a Python class and setup in a way that it can be used as a pipeline. You can take a quick look at that file by clicking on [**extra/custom_pipeline.py**](.extra/custom_pipeline.py) or by entering the command below in the codespace's terminal.
+7. We have a custom pipeline that is coded as a Python class that translates English statements to French and does sentiment analysis on them. We're going to put this on Hugging Face. You can take a quick look at that file by clicking on [**extra/custom_pipeline.py**](.extra/custom_pipeline.py) or by entering the command below in the codespace's terminal.
 
 ```bash
 code extra/custom_pipeline.py
 ```
 
-8. Create a basic README.md file by running the first command below. Then paste in the remaining contents, **substituting in your Hugging Face username where appropriate** and save the file.
+8. As a best practice, we need to create some supporting files. Create a basic README.md file by running the first command below. Then paste in the remaining contents, **substituting in your Hugging Face username where appropriate** and save the file.
 
 ```
 code README.md
