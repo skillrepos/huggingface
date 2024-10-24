@@ -431,6 +431,120 @@ python lab4.py
 </p>
 </br></br>
 
+**Lab 5 - Adding a model to Hugging Face**
+
+**Purpose: In this lab, we'll push our fine-tuned model to Hugging Face.**
+</br></br></br>
+1. We're going to take our fine-tuned model from Lab 4 and share it into Hugging Face for general availability. First, we need to save the version of the model (and the tokenizer) that were updated after the process. Edit *lab4.py* and add the two lines below *at the bottom of the file* to save the results in a new local directory.
+
+```python
+model.save_pretrained("./my-fine-tuned-model")
+tokenizer.save_pretrained("./my-fine-tuned-model")
+```
+</br></br></br>
+2. Now, run the program again with the changes to produce and save the tuned version of the model. Make a note also of the % accuracy *AFTER* the training so we can use it for comparison later.
+
+```bash
+python lab4.py
+```
+</br></br></br>
+
+3. After the run is complete, take a look at the files in the "./my-fine-tuned-model" directory. You should see a number of files needed to represent the model.
+
+```bash
+ls -la ./my-fine-tuned-model
+```
+</br></br></br>
+
+4. Create a new file that will be used to upload the model files (suggested name: *upload-model.py*). Put the following code in it and save it, replacing *<your-account>* with your Hugging Face account name. You can also change the model name from *ft-model-1* to something else if you want.
+
+```bash
+code upload-model.py
+```
+
+```python
+from transformers import AutoModelForSequenceClassification, AutoTokenizer
+
+# Load the model and tokenizer from the saved directory
+model = AutoModelForSequenceClassification.from_pretrained("./my-fine-tuned-model")
+tokenizer = AutoTokenizer.from_pretrained("./my-fine-tuned-model")
+
+# Replace 'your-username/your-model-name' with your Hugging Face username and desired repository name
+model.push_to_hub("<your-account>/ft-model-1")
+tokenizer.push_to_hub("<your-account>/ft-model-1")
+```
+</br></br></br>
+5. Save the changes to *upload-model.py* and then run it to actually create the repository in your Hugging Face area and upload the files to it. 
+
+```bash
+python upload-model.py
+```
+</br></br></br>
+6. Now, you can go to your area on https://huggingface.co/<your-account>/ft-model-1/tree/main and browse the files to verify that the files were uploaded as expected.
+
+![new repo](./images/hug58.png?raw=true "New repo")
+</br></br></br>
+7. Click on the "Use this model" button and then the "Transformers" link to see how to use your updated model in code.
+
+![use model](./images/hug59.png?raw=true "Use model")
+</br></br></br>
+8. Now, let's create some code to download the model from Hugging Face and evaluate it. At the end, we'll print out the accuracy of the model as-is. Create a new file (suggested name *test-model.py*) and then add the code below into it.
+
+```bash
+code test-model.py
+```
+```python
+# Load model directly
+import torch
+from transformers import AutoTokenizer, AutoModelForSequenceClassification, Trainer, TrainingArguments
+from datasets import load_dataset
+from torch.utils.data import DataLoader
+
+train_dataset = load_dataset('glue', 'sst2', split='train[:1%]')
+test_dataset = load_dataset('glue', 'sst2', split='validation[:1%]')
+
+tokenizer = AutoTokenizer.from_pretrained("techupskills/ft-model-1")
+model = AutoModelForSequenceClassification.from_pretrained("techupskills/ft-model-1")
+
+def preprocess_function(examples):
+    return tokenizer(examples['sentence'], truncation=True, padding='max_length', max_length=128)
+
+tokenized_train = train_dataset.map(preprocess_function, batched=True)
+tokenized_test = test_dataset.map(preprocess_function, batched=True)
+
+tokenized_train.set_format('torch', columns=['input_ids', 'attention_mask', 'label'])
+tokenized_test.set_format('torch', columns=['input_ids', 'attention_mask', 'label'])
+
+test_dataloader = DataLoader(tokenized_test, batch_size=16)
+
+model.eval()
+
+correct = 0
+total = 0
+
+for batch in test_dataloader:
+    inputs = {'input_ids': batch['input_ids'], 'attention_mask': batch['attention_mask']}
+    labels = batch['label']
+    with torch.no_grad():
+        outputs = model(**inputs)
+    predictions = torch.argmax(outputs.logits, dim=-1)
+    correct += (predictions == labels).sum().item()
+    total += labels.size(0)
+
+pre_fine_tune_accuracy = correct / total
+print(f'Accuracy of fine-tuned model: {pre_fine_tune_accuracy:.2f}')
+```
+</br></br></br>
+
+9. Save the file and execute it. At the end, take note of the accuracy value it prints out. It should be the same as the *after training* value from the earlier run. This demonstrates that our fine-tuned model was correctly captured and stored in our new repository.
+
+![testing model](./images/hug60.png?raw=true "Testing model")
+<p align="center">
+**[END OF LAB]**
+</p>
+</br></br>
+
+
 **Lab 5 - Creating a Sentiment Analysis Web App using Hugging Face and Gradio**
 
 **Purpose: In this lab, we'll create a web-based sentiment analysis application using Hugging Face transformers and Gradio. This app will analyze the sentiment of a given text and classify it as positive, neutral, or negative.**
