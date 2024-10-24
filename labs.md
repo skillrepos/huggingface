@@ -447,6 +447,7 @@ tokenizer.save_pretrained("./my-fine-tuned-model")
 ```bash
 python lab4.py
 ```
+![run to save model](./images/hug63.png?raw=true "Run to save model")
 </br></br></br>
 
 3. After the run is complete, take a look at the files in the "./my-fine-tuned-model" directory. You should see a number of files needed to represent the model.
@@ -538,7 +539,16 @@ print(f'Accuracy of fine-tuned model: {pre_fine_tune_accuracy:.2f}')
 
 9. Save the file and execute it. At the end, take note of the accuracy value it prints out. It should be the same as the *after training* value from the earlier run. This demonstrates that our fine-tuned model was correctly captured and stored in our new repository.
 
-![testing model](./images/hug60.png?raw=true "Testing model")
+![testing model](./images/hug64.png?raw=true "Testing model")
+</br></br></br>
+
+10. (OPTIONAL) If you want, you can select the *README.md* file in the list of files, click on the *edit* link, update any information you want to show up for the model, and then scroll all the way down and commit the changes back to the main branch of the repository.
+
+![adding model info](./images/hug60.png?raw=true "Adding model info")
+![adding model info](./images/hug61.png?raw=true "Adding model info")
+![adding model info](./images/hug62.png?raw=true "Adding model info")
+</br></br></br>
+
 <p align="center">
 **[END OF LAB]**
 </p>
