@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 1.6 - 10/23/24
+## Revision 1.7 - 10/23/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -455,6 +455,7 @@ python lab4.py
 ```bash
 ls -la ./my-fine-tuned-model
 ```
+![model files](./images/hug65.png?raw=true "Model files")
 </br></br></br>
 
 4. Create a new file that will be used to upload the model files (suggested name: *upload-model.py*). Put the following code in it and save it, replacing *<your-account>* with your Hugging Face account name. You can also change the model name from *ft-model-1* to something else if you want.
