@@ -422,8 +422,8 @@ from torch.utils.data import DataLoader
 train_dataset = load_dataset('glue', 'sst2', split='train[:1%]')
 test_dataset = load_dataset('glue', 'sst2', split='validation[:1%]')
 
-tokenizer = AutoTokenizer.from_pretrained("username/ft-model-1")
-model = AutoModelForSequenceClassification.from_pretrained("username/ft-model-1")
+tokenizer = AutoTokenizer.from_pretrained("<your account>/ft-model-1")
+model = AutoModelForSequenceClassification.from_pretrained("<your account>/ft-model-1")
 
 def preprocess_function(examples):
     return tokenizer(examples['sentence'], truncation=True, padding='max_length', max_length=128)
