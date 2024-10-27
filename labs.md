@@ -407,7 +407,7 @@ python upload-model.py
 
 ![use model](./images/hug59.png?raw=true "Use model")
 </br></br></br>
-11. Now, let's create some code to download the model from Hugging Face and evaluate it. At the end, we'll print out the accuracy of the model as-is. Create a new file (suggested name *test-model.py*) and then add the code below into it.
+11. Now, let's create some code to download the model from Hugging Face and evaluate it. At the end, we'll print out the accuracy of the model as-is. Create a new file (suggested name *test-model.py*) and then add the code below into it (**substituting in your username/repo in the "tokenizer =" and "model = " lines**).
 
 ```bash
 code test-model.py
@@ -422,8 +422,8 @@ from torch.utils.data import DataLoader
 train_dataset = load_dataset('glue', 'sst2', split='train[:1%]')
 test_dataset = load_dataset('glue', 'sst2', split='validation[:1%]')
 
-tokenizer = AutoTokenizer.from_pretrained("techupskills/ft-model-1")
-model = AutoModelForSequenceClassification.from_pretrained("techupskills/ft-model-1")
+tokenizer = AutoTokenizer.from_pretrained("username/ft-model-1")
+model = AutoModelForSequenceClassification.from_pretrained("username/ft-model-1")
 
 def preprocess_function(examples):
     return tokenizer(examples['sentence'], truncation=True, padding='max_length', max_length=128)
