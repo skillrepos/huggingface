@@ -33,7 +33,7 @@ python dgpt-med.py
 ```
 ![running the model](./images/hug51.png?raw=true "running the model")
 </br></br></br>
-6. After the model loads, you'll see a *>> User:* prompt. You can enter a prompt or question here, and after some time, the model will provide a response.  **NOTE** This model is small and old and does not provide good responses usually or even ones that make sense. We are using it as a simple, quick demo only.
+6. After the model loads, you'll see a *>> User:* prompt. You can enter a prompt or question here, and after some time, the model will provide a response.  **NOTE** This model is small and old and does not provide good responses usually or even ones that make sense. We are using it as a simple, quick demo only. (When done, you can exit out with CTRL-D.)
 
 ```python
 >> User: <prompt here>
