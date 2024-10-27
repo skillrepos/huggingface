@@ -43,13 +43,11 @@ python dgpt-med.py
 7. Let's now switch to a different model. Go back to the Hugging Face search and look for *phi3-vision*. Find and select the entry for *microsoft/Phi-3-vision-128k-instruct*.
 ![finding the phi3-vision model](./images/hug53.png?raw=true "finding the phi3-vision model")
 </br></br></br>
-8. Switch to the *Files and versions* page to see the sizes of the files in the Git repository. Note the larger sizes of the model files themselves.
-![examining the model files](./images/hug54.png?raw=true "examining the model files")
-</br></br></br>
-9. Now, let's see how we can try this model out with no setup on our part. Go back to the *Model card* tab, and scroll down to the *Resources and Technical Documentation* section. (This should be right after the *Model Summary* section.) Under that, select the entry for *Phi-3 on Azure AI Studio*.
+
+8. Now, let's see how we can try this model out with no setup on our part. Go back to the *Model card* tab, and scroll down to the *Resources and Technical Documentation* section. (This should be right after the *Model Summary* section.) Under that, select the entry for *Phi-3 on Azure AI Studio*.
 ![Invoking model on Azure AI Studio](./images/hug55.png?raw=true "Invoking the model on Azure AI Studio")
 </br></br></br>
-10. This will start up a separate browser instance of Azure AI Studio with the model loaded so you can query it. In the prompt area, enter in a prompt to have the AI describe a picture. You can upload one, enter the URL of one on the web, or use the example one suggested below. After you submit your prompt, the model should return a description of the photo. (If you get a response like *"Sorry I can't assist with that."*, refresh the page and try again.)
+9. This will start up a separate browser instance of Azure AI Studio with the model loaded so you can query it. In the prompt area, enter in a prompt to have the AI describe a picture. You can upload one, enter the URL of one on the web, or use the example one suggested below. After you submit your prompt, the model should return a description of the photo. (If you get a response like *"Sorry I can't assist with that."*, refresh the page and try again.)
 ```
 Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-cat-as-best-friends-looking-out-the-window-together.jpg?s=2048x2048&w=is&k=20&c=Do171m5e2DbPIlWDs1JfHn-g8Et_Hxb2AskHg4cRYY4=
 ```
