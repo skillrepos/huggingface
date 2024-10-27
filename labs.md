@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 1.7 - 10/23/24
+## Revision 1.8 - 10/27/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -13,7 +13,7 @@
 </br></br></br>
 1. In a browser, go to *https://huggingface.co/models*.
 </br></br></br>
-2. Let's search for another simple model to try out. In the search bar, enter the text *DialoGPT*. Look for and select the *microsoft/DialoGPT-medium* model. (Make sure not to select the *small* one.)
+2. Let's search for a simple model to try out. In the search bar, enter the text *DialoGPT*. Look for and select the *microsoft/DialoGPT-medium* model. (Make sure not to select the *small* one.)
   ![model search](./images/hug48.png?raw=true "model search")
 </br></br></br>
 3. Let's see how we can quickly get up and running with this model. On the *Model Card* page for the *microsoft/DialoGPT-medium* model, if you scroll down, you'll see a *How to use* section with some code in it. Highlight that code and copy it so we can paste it in a file in our workspace.
