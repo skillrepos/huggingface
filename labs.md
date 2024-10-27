@@ -181,105 +181,8 @@ python lab2.py
 </p>
 </br></br>
 
-**Lab 3 - Publishing a custom pipeline on Hugging Face**
 
-**Purpose: In this lab, we’ll publish a custom pipeline onto Hugging Face**
-</br></br></br>
-1. Make sure you are logged in to your Hugging Face account. We need to have an access token to work with. Go to this URL: https://huggingface.co/settings/tokens/new?tokenType=write to create a new token. (Alternatively, you can go to your user Settings, then select Access Tokens, then Create new token, and select Write for the token type.) Select a name for the token and then Create token.
-
-![creating a new token](./images/hug29.png?raw=true "Creating a new token")
-</br></br></br>
-2. After you click the Create button, your new token will be displayed on the screen. Make sure to Copy it and save it somewhere you can get to it for the next steps. You will not be able to see it again.
-
-![new token displayed](./images/hug30.png?raw=true "New token displayed")  
-</br></br></br>
-3. While we are in the Hugging Face site, go ahead and create a new repository for the custom pipeline. For simplicity, we'll use the Hugging Face CLI for this.  (If you'd rather know how to do it through the interface, see the alternate instructions further down.) Ignore the warning about *git lfs* and just hit *Enter* at the *Proceed?* prompt.
-
-```
-huggingface-cli repo create custom-pipe
-```
-![new repo ](./images/hug39.png?raw=true "New repo") 
-</br></br></br>
-(**Alternate method using the UI. Only do the option above or this one.**) Go to https://huggingface.co/new . (Alternatively, you can click on your profile icon in the top right corner and select New Model from the dropdown.) Then fill out the details of your model. You can just select "mit" for the license and keep the defaults for the remaining items. Then click on the "Create model" button at the bottom.
-
-![creating new repo ](./images/hug36.png?raw=true "Creating new repo") 
-![new repo ](./images/hug37.png?raw=true "New repo") 
-</br></br></br>
-4. Run the following command to login with your Hugging Face account credentials. Replace "*<YOUR_SAVED_TOKEN>*" with the actual value of the token you created in the earlier steps.  
-
-```
-huggingface-cli login --token <YOUR_SAVED_TOKEN>
-```
-
-![logging in with token](./images/hug38.png?raw=true "Logging in with token") 
-</br></br></br>
-
-6. After logging in, clone the repository down from Hugging Face to have it locally.
-
-```
-git clone https://huggingface.co/<username>/custom-pipe
-cd custom-pipe
-```
-</br></br></br>
-7. We have a custom pipeline that is coded as a Python class that translates English statements to French and does sentiment analysis on them. We're going to put this on Hugging Face. You can take a quick look at that file by clicking on [**extra/custom_pipeline.py**](.extra/custom_pipeline.py) or by entering the command below in the codespace's terminal.
-
-```bash
-code extra/custom_pipeline.py
-```
-
-8. As a best practice, we need to create some supporting files. Create a basic README.md file by running the first command below. Then paste in the remaining contents, **substituting in your Hugging Face username where appropriate** and save the file.
-
-```
-code README.md
-```
-```
----
-license: mit
----
-# Custom Translation-Sentiment Pipeline
-
-This pipeline translates English text to French and performs sentiment analysis on the translated text.
-
-## Usage:
-
-git clone https://huggingface.co/<username>/custom-pipe
-
-from custom_pipeline import TranslateAndSentimentPipeline()
-
-pipeline = TranslateAndSentimentPipeline()
-english_text = "I like this movie. It's pretty good."
-result = pipeline(english_text)
-print("Original Text:", result["original_text"])
-print("Translated Text:", result["translated_text"])
-print("Sentiment:", result["sentiment"])
-```
-</br></br></br>
-9. Copy the custom pipeline file from the *extra* directory into the custom-pipe directory.
-
-```
-cp ../extra/custom_pipeline.py .
-```
-</br></br></br>
-9. Now, we'll upload the readme and the app to the Hugging Face repository. We can do this with standard Git commands, but we can do it most easily with the CLI's *upload* command. Make sure you are in the directory with the app and README, then run the command below.
-
-```
-huggingface-cli upload custom-pipe .
-```
-After this runs, you should see output indicating your files were uploaded to the repository. 
-![uploading](./images/hug40.png?raw=true "Uploading") 
-
-You can also see the updated content in your Hugging Face repo.
-
-![updated repo](./images/hug41.png?raw=true "Updated repo") 
-
-10. Now if you or someone want to use the custom pipeline, you can clone down the repo (or use the *huggingface-cli download <username>/<model-repo>* command. Then you can use the example code in the README to try it out if you want.
-
-<p align="center">
-**[END OF LAB]**
-</p>
-</br></br>
-
-**Lab 4 - Fine-tuning a model with datasets**
+**Lab 3 - Fine-tuning a model with datasets**
 
 **Purpose: In this lab, we’ll see how to fine tune a model with a dataset using the transformers library**
 </br></br></br>
@@ -427,7 +330,7 @@ python lab4.py
 </p>
 </br></br>
 
-**Lab 5 - Adding a model to Hugging Face**
+**Lab 4 - Adding a model to Hugging Face**
 
 **Purpose: In this lab, we'll push our fine-tuned model to Hugging Face.**
 </br></br></br>
