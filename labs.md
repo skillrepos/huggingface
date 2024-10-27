@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 1.8 - 10/27/24
+## Revision 2.0 - 10/27/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -95,9 +95,7 @@ sample_reviews = imdb_dataset['test'].select(range(10))  # Selecting first 10 re
 </br></br></br>
 4. Now, we'll initialize two pipelines - one for sentiment analysis and one for summarization. The initialization calls will automatically download and load a pre-trained model that can be used for sentiment analysis or summarization, respectively.
 
-```python
-
-add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating English to French (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
+Add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating English to French (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
 
 ```python
 # Initialize a sentiment-analysis pipeline using a pre-trained model
@@ -440,7 +438,7 @@ model.save_pretrained("./my-fine-tuned-model")
 tokenizer.save_pretrained("./my-fine-tuned-model")
 ```
 </br></br></br>
-2. Now, run the program again with the changes to produce and save the tuned version of the model. Make a note also of the % accuracy *AFTER* the training so we can use it for comparison later.
+2. Now, run the program again with the changes to produce and save the tuned version of the model. Make a note also of the % accuracy *AFTER* the training so we can use it for comparison later. **While this step is running, you can do steps 3 - 5 to get authorization setup.!**
 
 ```bash
 python lab4.py
@@ -448,7 +446,25 @@ python lab4.py
 ![run to save model](./images/hug63.png?raw=true "Run to save model")
 </br></br></br>
 
-3. After the run is complete, take a look at the files in the "./my-fine-tuned-model" directory. You should see a number of files needed to represent the model.
+3. Switch back to your browser and the huggingface.co site. Make sure you are logged in to your Hugging Face account. We need to have an access token to work with. Go to this URL: https://huggingface.co/settings/tokens/new?tokenType=write to create a new token. (Alternatively, you can go to your user Settings, then select Access Tokens, then Create new token, and select Write for the token type.) Select a name for the token and then Create token.
+
+![creating a new token](./images/hug29.png?raw=true "Creating a new token")
+</br></br></br>
+4. After you click the Create button, your new token will be displayed on the screen. Make sure to Copy it and save it somewhere you can get to it for the next steps. You will not be able to see it again.
+
+![new token displayed](./images/hug30.png?raw=true "New token displayed")  
+</br></br></br>
+
+5. Run the following command to login with your Hugging Face account credentials. Replace "*<YOUR_SAVED_TOKEN>*" with the actual value of the token you created in the earlier steps.  
+
+```
+huggingface-cli login --token <YOUR_SAVED_TOKEN>
+```
+
+![logging in with token](./images/hug38.png?raw=true "Logging in with token") 
+</br></br></br>
+
+6. After your token is ready **and** the run is complete, take a look at the files in the "./my-fine-tuned-model" directory. You should see a number of files needed to represent the model.
 
 ```bash
 ls -la ./my-fine-tuned-model
@@ -456,7 +472,7 @@ ls -la ./my-fine-tuned-model
 ![model files](./images/hug65.png?raw=true "Model files")
 </br></br></br>
 
-4. Create a new file that will be used to upload the model files (suggested name: *upload-model.py*). Put the following code in it and save it, replacing *<your-account>* with your Hugging Face account name. You can also change the model name from *ft-model-1* to something else if you want.
+7. Create a new file that will be used to upload the model files (suggested name: *upload-model.py*). Put the following code in it and save it, replacing *<your-account>* with your Hugging Face account name. You can also change the model name from *ft-model-1* to something else if you want.
 
 ```bash
 code upload-model.py
@@ -474,21 +490,21 @@ model.push_to_hub("<your-account>/ft-model-1")
 tokenizer.push_to_hub("<your-account>/ft-model-1")
 ```
 </br></br></br>
-5. Save the changes to *upload-model.py* and then run it to actually create the repository in your Hugging Face area and upload the files to it. 
+8. Save the changes to *upload-model.py* and then run it to actually create the repository in your Hugging Face area and upload the files to it. 
 
 ```bash
 python upload-model.py
 ```
 </br></br></br>
-6. Now, you can go to your area on https://huggingface.co/<your-account>/ft-model-1/tree/main and browse the files to verify that the files were uploaded as expected.
+9. Now, you can go to your area on https://huggingface.co/<your-account>/ft-model-1/tree/main and browse the files to verify that the files were uploaded as expected.
 
 ![new repo](./images/hug58.png?raw=true "New repo")
 </br></br></br>
-7. Click on the "Use this model" button and then the "Transformers" link to see how to use your updated model in code.
+10. Click on the "Use this model" button and then the "Transformers" link to see how to use your updated model in code.
 
 ![use model](./images/hug59.png?raw=true "Use model")
 </br></br></br>
-8. Now, let's create some code to download the model from Hugging Face and evaluate it. At the end, we'll print out the accuracy of the model as-is. Create a new file (suggested name *test-model.py*) and then add the code below into it.
+11. Now, let's create some code to download the model from Hugging Face and evaluate it. At the end, we'll print out the accuracy of the model as-is. Create a new file (suggested name *test-model.py*) and then add the code below into it.
 
 ```bash
 code test-model.py
@@ -536,12 +552,12 @@ print(f'Accuracy of fine-tuned model: {pre_fine_tune_accuracy:.2f}')
 ```
 </br></br></br>
 
-9. Save the file and execute it. At the end, take note of the accuracy value it prints out. It should be the same as the *after training* value from the earlier run. This demonstrates that our fine-tuned model was correctly captured and stored in our new repository.
+12. Save the file and execute it. At the end, take note of the accuracy value it prints out. It should be the same as the *after training* value from the earlier run. This demonstrates that our fine-tuned model was correctly captured and stored in our new repository.
 
 ![testing model](./images/hug64.png?raw=true "Testing model")
 </br></br></br>
 
-10. (OPTIONAL) If you want, you can select the *README.md* file in the list of files, click on the *edit* link, update any information you want to show up for the model, and then scroll all the way down and commit the changes back to the main branch of the repository.
+(OPTIONAL) If you want, you can select the *README.md* file in the list of files, click on the *edit* link, update any information you want to show up for the model, and then scroll all the way down and commit the changes back to the main branch of the repository.
 
 ![adding model info](./images/hug60.png?raw=true "Adding model info")
 ![adding model info](./images/hug61.png?raw=true "Adding model info")
