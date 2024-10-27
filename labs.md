@@ -573,7 +573,7 @@ Alternatively, you can go to the PORTS tab in the codespace, find the row for th
 
 **Purpose - In this lab, we'll share the Gradio app we created in the last lab to a Hugging Face Space**
 </br></br></br>
-1. Make sure you're signed in to your Hugging Face account. We'll use the Hugging Face CLI again to create a new Space to upload our Gradio app to. Run the command below from the codespace terminal.
+1. Make sure you're signed in to your Hugging Face account. We'll use the Hugging Face CLI again to create a new Space to upload our Gradio app to. Run the command below from the codespace terminal.  (You can stop the Gradio app if you want to use the same terminal or switch to a new one.)
 
 ```
 huggingface-cli repo create  --type space --space_sdk gradio -y sentiment-analysis-app
