@@ -399,7 +399,7 @@ tokenizer.push_to_hub("<your-account>/ft-model-1")
 python upload-model.py
 ```
 </br></br></br>
-9. Now, you can go to your area on https://huggingface.co/<your-account>/ft-model-1/tree/main and browse the files to verify that the files were uploaded as expected.
+9. Now, you can go to your area on https://huggingface.co/your-account/ft-model-1/tree/main and browse the files to verify that the files were uploaded as expected.
 
 ![new repo](./images/hug58.png?raw=true "New repo")
 </br></br></br>
