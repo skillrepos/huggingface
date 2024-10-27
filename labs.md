@@ -578,7 +578,7 @@ Alternatively, you can go to the PORTS tab in the codespace, find the row for th
 ```
 huggingface-cli repo create  --type space --space_sdk gradio -y sentiment-analysis-app
 ```
-After this, you'll be able to see a link for the new repo as well as other information.
+After this, you'll be able to see a link for the new repo as well as other information. (You can ignore the git-lfs warning.)
 ![creating the space](./images/hug45.png?raw=true "Creating the space") 
 
 If you want, you can open up that link and look at the empty space on huggingface.co.
