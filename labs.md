@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 2.0 - 10/27/24
+## Revision 2.1 - 10/29/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -71,8 +71,9 @@ code lab2.py
 ```
 </br></br></br>
 2. First, import the necessary libraries from Hugging Face that we need. These are:
-*datasets.load_dataset: Loads datasets hosted on HuggingFace.co.
-*transformers.pipeline: Provides easy-to-use interfaces for various NLP tasks using pre-trained models.
+
+- datasets.load_dataset: Loads datasets hosted on HuggingFace.co.
+- transformers.pipeline: Provides easy-to-use interfaces for various NLP tasks using pre-trained models.
 
 Add the code below into the *lab2.py* file.
 
