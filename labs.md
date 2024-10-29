@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 2.1 - 10/29/24
+## Revision 2.2 - 10/29/24
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -187,7 +187,7 @@ python lab2.py
 
 **Purpose: In this lab, we’ll see how to fine tune a model with a dataset using the transformers library**
 </br></br></br>
-1. Create a new file named *lab4.py*. (Hint: You can use the command 'code lab4.py'.) In the new file, first import the necessary libraries for loading the model, tokenizer, dataset, and handling training with PyTorch
+1. Create a new file named *lab3.py*. (Hint: You can use the command 'code lab3.py'.) In the new file, first import the necessary libraries for loading the model, tokenizer, dataset, and handling training with PyTorch
    
 ```python
 
@@ -324,7 +324,7 @@ print(f'Accuracy after fine-tuning: {post_fine_tune_accuracy:.2f}')
 12. Save the file and execute the code to see the fine-tuning happen and the difference before and after. Remember we are only using a very small subset of the dataset, but we are also fine-tuning and testing with the same subset. This will take several minutes to run.
 
 ```
-python lab4.py
+python lab3.py
 ```
 <p align="center">
 **[END OF LAB]**
@@ -335,7 +335,7 @@ python lab4.py
 
 **Purpose: In this lab, we'll push our fine-tuned model to Hugging Face.**
 </br></br></br>
-1. We're going to take our fine-tuned model from Lab 4 and share it into Hugging Face for general availability. First, we need to save the version of the model (and the tokenizer) that were updated after the process. Edit *lab4.py* and add the two lines below *at the bottom of the file* to save the results in a new local directory.
+1. We're going to take our fine-tuned model from Lab 3 and share it into Hugging Face for general availability. First, we need to save the version of the model (and the tokenizer) that were updated after the process. Edit *lab3.py* and add the two lines below *at the bottom of the file* to save the results in a new local directory.
 
 ```python
 model.save_pretrained("./my-fine-tuned-model")
@@ -345,7 +345,7 @@ tokenizer.save_pretrained("./my-fine-tuned-model")
 2. Now, run the program again with the changes to produce and save the tuned version of the model. Make a note also of the % accuracy *AFTER* the training so we can use it for comparison later. **While this step is running, you can do steps 3 - 5 to get authorization setup.!**
 
 ```bash
-python lab4.py
+python lab3.py
 ```
 ![run to save model](./images/hug63.png?raw=true "Run to save model")
 </br></br></br>
