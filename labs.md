@@ -96,8 +96,6 @@ sample_reviews = imdb_dataset['test'].select(range(10))  # Selecting first 10 re
 </br></br></br>
 4. Now, we'll initialize two pipelines - one for sentiment analysis and one for summarization. The initialization calls will automatically download and load a pre-trained model that can be used for sentiment analysis or summarization, respectively.
 
-Add the code to import the necessary models and pipelines. Put the following into the new file. In this code, the translator uses a pre-trained model for translating English to French (can be replaced for other languages). And the sentiment_analyzer is a pre-trained sentiment analysis model that works on English text.
-
 ```python
 # Initialize a sentiment-analysis pipeline using a pre-trained model
 sentiment_analyzer = pipeline('sentiment-analysis')
