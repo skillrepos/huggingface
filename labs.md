@@ -560,7 +560,7 @@ gradio_app.launch(share=True)
 python app.py
 ```
 
-10. After this starts running, you should see a line that says "Running on public URL: <URL>". You can go to that address and see the running app.
+10. After this starts running, you should see a line that says "Running on public URL: <URL>". You can go to that address and see the running app.  When done with the running app, you can use CTRL+C to end it.
 
 ![public address](./images/hug42.png?raw=true "Public address") 
 
