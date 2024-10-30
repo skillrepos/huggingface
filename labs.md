@@ -458,6 +458,10 @@ print(f'Accuracy of fine-tuned model: {pre_fine_tune_accuracy:.2f}')
 
 12. Save the file and execute it. At the end, take note of the accuracy value it prints out. It should be the same as the *after training* value from the earlier run. This demonstrates that our fine-tuned model was correctly captured and stored in our new repository.
 
+```bash
+python test-model.py
+```
+
 ![testing model](./images/hug64.png?raw=true "Testing model")
 </br></br></br>
 
