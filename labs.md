@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 2.3 - 10/30/24
+## Revision 2.4 - 03/22/25
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -16,7 +16,7 @@
 2. Let's search for a simple model to try out. In the search bar, enter the text *DialoGPT*. Look for and select the *microsoft/DialoGPT-medium* model. (Make sure not to select the *small* one.)
   ![model search](./images/hug48.png?raw=true "model search")
 </br></br></br>
-3. Let's see how we can quickly get up and running with this model. On the *Model Card* page for the *microsoft/DialoGPT-medium* model, if you scroll down, you'll see a *How to use* section with some code in it. Highlight that code and copy it so we can paste it in a file in our workspace.
+3. Let's see how we can quickly get up and running with this model. On the *Model Card* page for the *microsoft/DialoGPT-medium* model, if you scroll down, you'll see a *How to use* section with some code in it. Use the *Copy button* in the upper right or highlight the code and copy it so we can paste it in a file in our workspace.
 
 ![code to use model](./images/hug49.png?raw=true "code to use model")
 </br></br></br>  
@@ -33,27 +33,27 @@ python dgpt-med.py
 ```
 ![running the model](./images/hug51.png?raw=true "running the model")
 </br></br></br>
-6. After the model loads, you'll see a *>> User:* prompt. You can enter a prompt or question here, and after some time, the model will provide a response.  **NOTE** This model is small and old and does not provide good responses usually or even ones that make sense. We are using it as a simple, quick demo only. (When done, you can exit out with CTRL-D.)
+6. After the model loads, you'll see a *>> User:* prompt. (If the model doesn't seem to be finishing loading, try clicking in the terminal and hitting Enter.) You can enter a prompt or question here, and after some time, the model will provide a response.  **NOTE** This model is small and old and does not provide good responses usually or even ones that make sense. We are using it as a simple, quick demo only. (When done, you can exit out with CTRL-D.)
 
 ```python
 >> User: <prompt here>
 ```
 ![running the model](./images/hug52.png?raw=true "running the model")
 </br></br></br>
-7. Let's now switch to a different model. Go back to the Hugging Face search and look for *phi3-vision*. Find and select the entry for *microsoft/Phi-3-vision-128k-instruct*.
-![finding the phi3-vision model](./images/hug53.png?raw=true "finding the phi3-vision model")
+7. Let's now switch to a different model. Go back to the Hugging Face search and look for *phi-4-*. Find and select the entry for *microsoft/Phi-4-multimodal-instruct*.
+![finding the phi4-vision model](./images/hug66.png?raw=true "finding the phi4-vision model")
 </br></br></br>
 
-8. Now, let's see how we can try this model out with no setup on our part. Go back to the *Model card* tab, and scroll down to the *Resources and Technical Documentation* section. (This should be right after the *Model Summary* section.) Under that, select the entry for *Phi-3 on Azure AI Studio*.
-![Invoking model on Azure AI Studio](./images/hug55.png?raw=true "Invoking the model on Azure AI Studio")
+8. Now, let's see how we can try this model out with no setup on our part. On the *Model card* tab, under the *Model Summary* section, find the *Try it on* line and click on the *GitHub* link. 
+![Trying model on GitHub](./images/hug67.png?raw=true "Trying model on GitHub")
 </br></br></br>
-9. This will start up a separate browser instance of Azure AI Studio with the model loaded so you can query it. In the prompt area, enter in a prompt to have the AI describe a picture. You can upload one, enter the URL of one on the web, or use the example one suggested below. After you submit your prompt, the model should return a description of the photo. (If you get a response like *"Sorry I can't assist with that."*, refresh the page and try again.)
+9. This will open up a GitHub link with the model loaded so you can query it. In the prompt area, enter in a prompt to have the AI describe a picture. You can upload one, enter the URL of one on the web, or use the example one suggested below. Submit your prompt by hitting *Enter* or clicking on the *Send Now* (arrow) button.  After this, the model should return a description of the photo. 
 ```
 Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-cat-as-best-friends-looking-out-the-window-together.jpg?s=2048x2048&w=is&k=20&c=Do171m5e2DbPIlWDs1JfHn-g8Et_Hxb2AskHg4cRYY4=
 ```
-![Describing an image](./images/hug56.png?raw=true "Describing an image")
-
-
+![Describing an image](./images/hug68.png?raw=true "Describing an image")
+</br></br></br>
+10. After you are done, you can switch back to *https://huggingface.co* for the next lab.
 <p align="center">
 **[END OF LAB]**
 </p>
