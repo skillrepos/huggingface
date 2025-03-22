@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 2.4 - 03/22/25
+## Revision 2.5 - 03/22/25
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
@@ -64,7 +64,7 @@ Describe the image at https://media.istockphoto.com/id/1364253107/photo/dog-and-
 
 **Purpose: In this lab, we’ll construct a Python program that demonstrates how to use entities from HuggingFace.co to accomplish a meaningful task.**
 </br></br></br>
-1. In this lab, we'll create a program that performs sentiment analysis on movie reviews from the IMDb dataset and summarizes negative reviews. It leverages multiple features from Hugging Face, including the datasets library and pre-trained models from the transformers library. To start, create a new file for our code.
+1. In this lab, we'll create a program that performs sentiment analysis on movie reviews from the IMDb dataset and summarizes negative reviews. It leverages multiple features from Hugging Face, including the datasets library and pre-trained models from the transformers library. To start, back in your codespace or local environment, create a new file for our code.
 
 ```bash
 code lab2.py
@@ -340,7 +340,7 @@ model.save_pretrained("./my-fine-tuned-model")
 tokenizer.save_pretrained("./my-fine-tuned-model")
 ```
 </br></br></br>
-2. Now, run the program again with the changes to produce and save the tuned version of the model. Make a note also of the % accuracy *AFTER* the training so we can use it for comparison later. **While this step is running, you can do steps 3 - 5 to get authorization setup.!**
+2. Now, run the program again with the changes to produce and save the tuned version of the model. Make a note also of the % accuracy *AFTER* the training so we can use it for comparison later. **While this step is running, you can do steps 3 - 5 to get authorization setup!**
 
 ```bash
 python lab3.py
@@ -357,7 +357,7 @@ python lab3.py
 ![new token displayed](./images/hug30.png?raw=true "New token displayed")  
 </br></br></br>
 
-5. Run the following command to login with your Hugging Face account credentials. Replace "*<YOUR_SAVED_TOKEN>*" with the actual value of the token you created in the earlier steps.  
+5. Run the following command to login with your Hugging Face account credentials. (If your job is not finished yet, you can right-click and select in the terminal and select *Split Terminal* to get a second one.) Replace "*<YOUR_SAVED_TOKEN>*" with the actual value of the token you created in the earlier steps.  
 
 ```
 huggingface-cli login --token <YOUR_SAVED_TOKEN>
@@ -558,7 +558,7 @@ gradio_app.launch(share=True)
 python app.py
 ```
 
-10. After this starts running, you should see a line that says "Running on public URL: <URL>". You can go to that address and see the running app.  When done with the running app, you can use CTRL+C to end it.
+10. After this starts running, you should see a line that says "Running on public URL: <URL>". You can go to that address and see the running app. Or you may see a pop-up in the codespace where you can click on the button to get to the app. 
 
 ![public address](./images/hug42.png?raw=true "Public address") 
 
@@ -566,7 +566,9 @@ Alternatively, you can go to the PORTS tab in the codespace, find the row for th
 ![open from codespace](./images/hug43.png?raw=true "Open from codespace") 
 </br></br></br>
 11. When the app is opened, you can click on one of the pre-populated examples or type your own in and click on *Submit* to see the sentiment result.
-![using the app](./images/hug44.png?raw=true "Using the app") 
+![using the app](./images/hug69.png?raw=true "Using the app") 
+</br></br></br>
+12. When done with the running app, you can use *CTRL+C* back in the terminal to end it.
 <p align="center">
 **[END OF LAB]**
 </p>
