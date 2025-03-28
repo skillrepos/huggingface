@@ -1,7 +1,7 @@
 # Working with HuggingFace
 ## Understanding the "GitHub" of LLMs: half-day workshop
 ## Session labs 
-## Revision 2.5 - 03/22/25
+## Revision 2.6 - 03/27/25
 
 **Follow the startup instructions in the README.md file IF NOT ALREADY DONE!**
 
