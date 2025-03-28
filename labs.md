@@ -594,9 +594,9 @@ git clone https://huggingface.co/spaces/YOUR_USERNAME/sentiment-analysis-app
 cd sentiment-analysis-app
 ```
 There's also clone guidance on the website.  
-![clone guidance](./images/hug26.png?raw=true "Clone guidance")  
+
 </br></br></br>
-5. Create a *requirements.txt* file with these contents and save it. (Hint: *code requirements.txt*, but make sure you're in the cloned directory.)
+3. Create a *requirements.txt* file with these contents and save it. (Hint: *code requirements.txt*, but make sure you're in the cloned directory.)
 
 ```
 transformers
@@ -606,7 +606,7 @@ numpy
 torch
 ```
 </br></br></br>
-6. Copy the *app.py* file from the last lab into the cloned directory. Add it and the *requirements.txt* file to Git and execute the commands from the dialog in your Codespace terminal to get the app put into Spaces.
+4. Copy the *app.py* file from the last lab into the cloned directory. Add it and the *requirements.txt* file to Git and execute the commands from the dialog in your Codespace terminal to get the app put into Spaces.
 
 ```bash
 cp ../app.py .
@@ -615,13 +615,13 @@ git commit -m "Add Gradio sentiment analysis app"
 huggingface-cli upload --repo-type space sentiment-analysis-app .
 ```
 </br></br></br>
-7. Once pushed, the Hugging Face platform will automatically build and deploy your Gradio app. You can look at the build log on the site and monitor progress. The screenshot below shows the location of the button to look at the build logs for the app as it is building.
+5. Once pushed, the Hugging Face platform will automatically build and deploy your Gradio app. You can look at the build log on the site and monitor progress. The screenshot below shows the location of the button to look at the build logs for the app as it is building.
 ![viewing the build log](./images/hug46.png?raw=true "Viewing the build log") 
 </br></br></br>
-8. When the build process is complete and the ap is deployed, you can switch back to the "App" page to see your Gradio app live on the Hugging Face Space. Test it by entering some text in the input box and see the sentiment classification.
+6. When the build process is complete and the ap is deployed, you can switch back to the "App" page to see your Gradio app live on the Hugging Face Space. Test it by entering some text in the input box and see the sentiment classification.
 ![app running in space](./images/hug47.png?raw=true "App running in space")
 </br></br></br>
-9. You can share the URL of your space. It's
+7. You can share the URL of your space. It's
 
 ```bash
 https://huggingface.co/spaces/YOUR_USERNAME/sentiment-analysis-app
