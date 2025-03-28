@@ -594,7 +594,6 @@ git clone https://huggingface.co/spaces/YOUR_USERNAME/sentiment-analysis-app
 cd sentiment-analysis-app
 ```
 There's also clone guidance on the website.  
-
 </br></br></br>
 3. Create a *requirements.txt* file with these contents and save it. (Hint: *code requirements.txt*, but make sure you're in the cloned directory.)
 
